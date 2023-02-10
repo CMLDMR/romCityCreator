@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "Widget/graphicsview.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -17,5 +19,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+
+    Widget::GraphicsView* mGraphicsView;
+
 };
 #endif // MAINWINDOW_H
