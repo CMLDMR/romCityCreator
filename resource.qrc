@@ -2,4 +2,7 @@
     <qresource prefix="/icon">
         <file>bin/icon/icons8-arrow-cursor-91.png</file>
     </qresource>
+    <qresource prefix="/">
+        <file>bin/asset/tree/tree1.png</file>
+    </qresource>
 </RCC>
