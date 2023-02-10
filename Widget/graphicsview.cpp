@@ -97,7 +97,6 @@ void GraphicsView::renderScene()
                     areaCount++;
                     auto modY = randomGenerator(0,30);
                     auto modX = randomGenerator(0,30);
-//                    qDebug() << modX << modY;
 
                     if( i%20 == 0 && j%30 == 0 ){
                         auto treePixMap = QPixmap("://bin/asset/tree/tree1.png");
@@ -127,25 +126,6 @@ void GraphicsView::renderScene()
                                         .arg(totalAreaCount)
                                         .arg(boundingRect.width()*boundingRect.height()));
         textItem->setPos(meanx,meany+200);
-
-
-        //        auto treeCount = areaPointList.size()/50;
-        //        QList<int> indexed;
-        //        for( int i = 0 ; i < treeCount ; i++ ){
-
-        //            auto index = randomGenerator(1,areaPointList.size() );
-        //            if( indexed.contains(index) ){
-
-        //            }else{
-
-        //                indexed.push_back(index);
-        //                auto treeItem = mScene->addPixmap(QPixmap("://bin/asset/tree/tree1.png"));
-        //                treeItem->setPos(areaPointList[index].x(),areaPointList[index].y());
-        //            }
-
-        //        }
-
-
     }
 
 }
