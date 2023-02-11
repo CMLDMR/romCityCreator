@@ -19,6 +19,9 @@ void Tree::Tree::setTreeTypePath(const TreeType &_type)
     case TreeType::akasya:
         setAssetPath("://bin/asset/tree/tree1.png");
         break;
+    case TreeType::pine:
+        setAssetPath("://bin/asset/tree/tree2.png");
+        break;
     default:
         break;
     }

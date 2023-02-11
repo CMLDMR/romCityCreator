@@ -18,6 +18,8 @@ void Forest::populateEcosystem()
     std::uint64_t outsideAreaCount{0};
     std::uint64_t totalAreaCount{0};
 
+
+    mPlantList.clear();
     for( int j = 0 ; j < this->AreaHeight() ; j++ ){
 
         for( int i = 0 ; i < this->AreaWidth() ; i++ ){
@@ -31,6 +33,12 @@ void Forest::populateEcosystem()
                 if( i%30 == 0 && j%30 == 0 ){
                     mPlantPoints.push_back(QPointF(i+modX,j+modY));
                     treeCount++;
+                    auto _random = LandScape::randomGenerator(0,255);
+                    if( _random%2 == 0 ){
+                        mPlantList.push_back(std::make_tuple(QPointF(i+modX,j+modY),49,94,"://bin/asset/tree/tree1.png"));
+                    }else{
+                        mPlantList.push_back(std::make_tuple(QPointF(i+modX,j+modY),50,58,"://bin/asset/tree/tree2.png"));
+                    }
                 }
             }else{
                 outsideAreaCount++;
@@ -44,6 +52,11 @@ void Forest::populateEcosystem()
 QList<QPointF> Forest::plantPoints() const
 {
     return mPlantPoints;
+}
+
+QList<std::tuple<QPointF, int, int, std::string> > Forest::plantList() const
+{
+    return mPlantList;
 }
 
 } // namespace Plant
