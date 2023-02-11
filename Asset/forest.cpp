@@ -1,11 +1,22 @@
 #include "forest.h"
 #include <QDebug>
+#include <QPixmap>
 
 namespace Assets {
 namespace Plant {
 
 Forest::Forest()
 {
+
+    mAssetPathList.push_back("://bin/asset/tree/tree1.png");
+    mAssetPathList.push_back("://bin/asset/tree/tree2.png");
+    mAssetPathList.push_back("://bin/asset/tree/tree3.png");
+    mAssetPathList.push_back("://bin/asset/tree/tree4.png");
+    mAssetPathList.push_back("://bin/asset/tree/tree5.png");
+    mAssetPathList.push_back("://bin/asset/tree/tree6.png");
+    mAssetPathList.push_back("://bin/asset/tree/tree7.png");
+    mAssetPathList.push_back("://bin/asset/tree/tree8.png");
+    mAssetPathList.push_back("://bin/asset/tree/tree9.png");
 
 }
 
@@ -28,17 +39,19 @@ void Forest::populateEcosystem()
 
             if( polygonArea().containsPoint(QPointF(_xPos,_yPos),Qt::FillRule::OddEvenFill ) ){
                 areaCount++;
-                auto modY = LandScape::randomGenerator(-10,10);
-                auto modX = LandScape::randomGenerator(-10,10);
-                if( i%30 == 0 && j%30 == 0 ){
-//                    mPlantPoints.push_back(QPointF(i+modX,j+modY));
+                auto modY = LandScape::randomGenerator(-20,20);
+                auto modX = LandScape::randomGenerator(-20,20);
+                if( i%25 == 0 && j%25 == 0 ){
+
                     treeCount++;
-                    auto _random = LandScape::randomGenerator(0,255);
-                    if( _random%2 == 0 ){
-                        mPlantList.push_back(std::make_tuple(QPointF(i+modX,j+modY),100,93,"://bin/asset/tree/tree1.png"));
-                    }else{
-                        mPlantList.push_back(std::make_tuple(QPointF(i+modX,j+modY),120,100,"://bin/asset/tree/tree2.png"));
-                    }
+                    auto _random = LandScape::randomGenerator(0,100);
+
+                    auto selectedPath = mAssetPathList[_random%mAssetPathList.size()];
+                    QPixmap pixmap(selectedPath);
+
+                    mPlantList.push_back(std::make_tuple(QPointF(i+modX,j+modY),pixmap.width(),pixmap.height(),selectedPath.toStdString()));
+
+
                 }
             }else{
                 outsideAreaCount++;
@@ -46,16 +59,16 @@ void Forest::populateEcosystem()
             totalAreaCount++;
         }
     }
-    for( const auto &point : this->polygonArea() ){
-//        mPlantPoints.push_back(point);
 
-        auto _random = LandScape::randomGenerator(0,255);
-        if( _random%2 == 0 ){
-            mPlantList.push_back(std::make_tuple(point,100,93,"://bin/asset/tree/tree1.png"));
-        }else{
-            mPlantList.push_back(std::make_tuple(point,120,100,"://bin/asset/tree/tree2.png"));
-        }
-    }
+
+//    for( const auto &point : this->polygonArea() ){
+//        auto _random = LandScape::randomGenerator(0,255);
+//        if( _random%2 == 0 ){
+//            mPlantList.push_back(std::make_tuple(point,100,93,"://bin/asset/tree/tree1.png"));
+//        }else{
+//            mPlantList.push_back(std::make_tuple(point,120,100,"://bin/asset/tree/tree2.png"));
+//        }
+//    }
 
 
 }

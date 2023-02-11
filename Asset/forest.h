@@ -22,6 +22,8 @@ private:
 
     QList<std::tuple<QPointF,int,int,std::string>> mPlantList;
 
+    QStringList mAssetPathList;
+
 };
 
 } // namespace Plant
