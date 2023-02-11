@@ -15,8 +15,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     QObject::connect(ui->pushButton_TreeArea,&QPushButton::clicked,[=](){
         mGraphicsView->setCurrentDrawingElement(Widget::ElementItem::tree);
-
     });
+
+
+    QObject::connect(ui->pushButton_zoomin,&QPushButton::clicked,[=](){
+        mGraphicsView->scale(1.25,1.25);
+    });
+
+    QObject::connect(ui->pushButton_zoomout,&QPushButton::clicked,[=](){
+        mGraphicsView->scale(0.8,0.8);
+    });
+
+    QObject::connect(ui->pushButton_fitwindow,&QPushButton::clicked,[=](){
+        mGraphicsView->resetTransform();
+    });
+
 }
 
 MainWindow::~MainWindow()

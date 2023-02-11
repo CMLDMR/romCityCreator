@@ -17,6 +17,7 @@ include_directories("${CMAKE_SOURCE_DIR}")
 file(GLOB_RECURSE HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
 file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 file(GLOB_RECURSE RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.qrc)
+file(GLOB_RECURSE UISOURCE ${CMAKE_CURRENT_SOURCE_DIR}/*.ui)
 
 
 #set(PROJECT_SOURCES
@@ -41,6 +42,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${HEADERS}
         ${SOURCES}
         ${RESOURCES}
+        ${UISOURCE}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET CityCreator APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
