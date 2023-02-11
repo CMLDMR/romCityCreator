@@ -12,7 +12,7 @@ Forest::Forest()
 void Forest::populateEcosystem()
 {
     qDebug() << "Populating...";
-    if( mPlantPoints.size() ) return;
+    if( mPlantList.size() ) return;
     std::uint64_t treeCount{0};
     std::uint64_t areaCount{0};
     std::uint64_t outsideAreaCount{0};
@@ -31,7 +31,7 @@ void Forest::populateEcosystem()
                 auto modY = LandScape::randomGenerator(-10,10);
                 auto modX = LandScape::randomGenerator(-10,10);
                 if( i%30 == 0 && j%30 == 0 ){
-                    mPlantPoints.push_back(QPointF(i+modX,j+modY));
+//                    mPlantPoints.push_back(QPointF(i+modX,j+modY));
                     treeCount++;
                     auto _random = LandScape::randomGenerator(0,255);
                     if( _random%2 == 0 ){
@@ -46,6 +46,17 @@ void Forest::populateEcosystem()
             totalAreaCount++;
         }
     }
+    for( const auto &point : this->polygonArea() ){
+//        mPlantPoints.push_back(point);
+
+        auto _random = LandScape::randomGenerator(0,255);
+        if( _random%2 == 0 ){
+            mPlantList.push_back(std::make_tuple(point,100,93,"://bin/asset/tree/tree1.png"));
+        }else{
+            mPlantList.push_back(std::make_tuple(point,120,100,"://bin/asset/tree/tree2.png"));
+        }
+    }
+
 
 }
 
