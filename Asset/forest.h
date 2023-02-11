@@ -1,6 +1,7 @@
 #ifndef ASSETS_PLANT_FOREST_H
 #define ASSETS_PLANT_FOREST_H
 #include "Asset/area.h"
+#include <tuple>
 
 namespace Assets {
 namespace Plant {
@@ -14,8 +15,12 @@ public:
 
     QList<QPointF> plantPoints() const;
 
+    QList<std::tuple<QPointF, int, int, std::string> > plantList() const;
+
 private:
     QList<QPointF> mPlantPoints;
+
+    QList<std::tuple<QPointF,int,int,std::string>> mPlantList;
 
 };
 

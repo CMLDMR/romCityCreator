@@ -12,7 +12,8 @@ class Forest;
 namespace Tree {
 
 enum class TreeType{
-    akasya
+    akasya,
+    pine
 };
 
 class Tree : public Assets::Plant::Plant

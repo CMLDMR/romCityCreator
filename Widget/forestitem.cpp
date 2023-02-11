@@ -15,13 +15,21 @@ ForestItem::ForestItem()
 
 QRectF Widget::ForestItem::boundingRect() const
 {
-    return QRectF(-40,-60,this->AreaWidth()+40+20,this->AreaHeight()+60);
+
+    return QRectF(-40,-50,this->AreaWidth()+60+20,this->AreaHeight()+50);
 }
 
 void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+
+    Assets::Tree::Tree *tree;
+
+    tree    = new Assets::Tree::Tree(Assets::Tree::TreeType::pine);
+
+
+
     painter->drawText(0,0,"Forest Area");
-    painter->drawText(-40,-40,"Rendering Area");
+    painter->drawText(-40,-35,"Rendering Area");
 
     painter->setPen(QPen(Qt::GlobalColor::red));
     painter->drawRect(this->boundingRect());
@@ -31,13 +39,20 @@ void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
     painter->setPen(QPen(Qt::GlobalColor::black));
     painter->drawPolygon(polygonArea());
 
-    Assets::Tree::Tree *tree = new Assets::Tree::Tree(Assets::Tree::TreeType::akasya);
     QPixmap treePixmap(tree->assetPath().c_str());
     this->populateEcosystem();
 
-    for( const auto &point : this->plantPoints() ){
+
+//    for( const auto &point : this->plantPoints() ){
+//        painter->drawRect(point.x(),point.y(),3,3);
+
+//        painter->drawPixmap(point.x()-tree->assetWidth()/2,point.y()-tree->assetHeight(),treePixmap);
+//    }
+
+    for( const auto &[point,width,height,path] : this->plantList() ){
         painter->drawRect(point.x(),point.y(),3,3);
-        painter->drawPixmap(point.x()-tree->assetWidth()/2,point.y()-tree->assetHeight(),treePixmap);
+
+        painter->drawPixmap(point.x()-width/2,point.y()-height,QPixmap(path.c_str()));
     }
 
 }
