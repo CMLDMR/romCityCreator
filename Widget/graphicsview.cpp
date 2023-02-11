@@ -10,7 +10,6 @@
 
 #include <QGraphicsSceneMouseEvent>
 
-#include "treeitem.h"
 
 
 namespace Widget {
@@ -49,11 +48,7 @@ GraphicsView::GraphicsView(QWidget *parent)
 
     mScene->installEventFilter(this);
 
-
     this->setScene(mScene);
-
-
-    mDrawingLineItem = nullptr;
 }
 
 void GraphicsView::setCurrentDrawingElement(const ElementItem &itemType)
@@ -84,21 +79,18 @@ GraphicsScene::GraphicsScene(QObject *parent)
     renderScene();
 }
 
-QList<QPointF> TreeArea::pointList() const
-{
-    return mPList;
-}
+
 
 } // namespace Widget
 
 void Widget::GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-            if( mCurrentElementType == ElementItem::tree ){
-                if( mDrawingLineItem ){
-                    mLineF.setP2(QPointF(event->scenePos().x(),event->scenePos().y()));
-                    mDrawingLineItem->setLine(mLineF);
-                }
-            }
+    if( mCurrentElementType == ElementItem::tree ){
+        if( mDrawingLineItem ){
+            mLineF.setP2(QPointF(event->scenePos().x(),event->scenePos().y()));
+            mDrawingLineItem->setLine(mLineF);
+        }
+    }
 }
 
 void Widget::GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -124,22 +116,22 @@ void Widget::GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void Widget::GraphicsScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-        if( mCurrentElementType == ElementItem::tree ){
+    if( mCurrentElementType == ElementItem::tree ){
 
-            ForestItem* MmForestItem = new ForestItem();
+        ForestItem* MmForestItem = new ForestItem();
 
-            MmForestItem->setArea(mPolygon);
+        MmForestItem->setArea(mPolygon);
 
-            mForestItemList.push_back(MmForestItem);
+        mForestItemList.push_back(MmForestItem);
 
-            mPolygon.clear();
+        mPolygon.clear();
 
-            this->addItem(MmForestItem);
-            MmForestItem->setPos(MmForestItem->getPosition());
-            this->removeItem(mDrawingLineItem);
-            mDrawingLineItem = nullptr;
-        }
-        this->setCurrentElementType(ElementItem::null);
+        this->addItem(MmForestItem);
+        MmForestItem->setPos(MmForestItem->getPosition());
+        this->removeItem(mDrawingLineItem);
+        mDrawingLineItem = nullptr;
+    }
+    this->setCurrentElementType(ElementItem::null);
 }
 
 
