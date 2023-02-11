@@ -8,10 +8,36 @@
 
 #include <QDebug>
 
+#include <QGraphicsSceneMouseEvent>
+
 #include "treeitem.h"
 
 
 namespace Widget {
+
+void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
+{
+    mCurrentElementType = newCurrentElementType;
+
+}
+
+void GraphicsScene::renderScene()
+{
+    this->clear();
+    mDrawingLineItem = nullptr;
+
+    addRect(0,0,3000,3000,QPen(QColor(Qt::black)));
+
+    auto floorItem = addPixmap(QPixmap("://bin/asset/floor.jpg"));
+    floorItem->setPos(0,0);
+
+    for( const auto &forestItem : mForestItemList ){
+        addItem(forestItem);
+        forestItem->setPos(forestItem->getPosition());
+    }
+}
+
+
 
 GraphicsView::GraphicsView(QWidget *parent)
     :QGraphicsView(parent)
@@ -21,22 +47,18 @@ GraphicsView::GraphicsView(QWidget *parent)
 
     mScene = new GraphicsScene(this);
 
+    mScene->installEventFilter(this);
+
+
     this->setScene(mScene);
 
-    this->renderScene();
-
-
-
-//    this->setViewportUpdateMode(ViewportUpdateMode::FullViewportUpdate);
 
     mDrawingLineItem = nullptr;
-
-
 }
 
 void GraphicsView::setCurrentDrawingElement(const ElementItem &itemType)
 {
-    mCurrentElementType = itemType;
+    mScene->setCurrentElementType(itemType);
     switch (mCurrentElementType) {
     case ElementItem::null:
         this->setCursor(QCursor(Qt::CursorShape::ArrowCursor));
@@ -54,29 +76,12 @@ void GraphicsView::setCurrentDrawingElement(const ElementItem &itemType)
     }
 }
 
-void GraphicsView::renderScene()
-{
 
-    this->mScene->clear();
-    mDrawingLineItem = nullptr;
-
-    mScene->addRect(0,0,3000,3000,QPen(QColor(Qt::black)));
-
-    auto floorItem = mScene->addPixmap(QPixmap("://bin/asset/floor.jpg"));
-    floorItem->setPos(0,0);
-
-    for( const auto &forestItem : mForestItemList ){
-        mScene->addItem(forestItem);
-        forestItem->setPos(forestItem->getPosition());
-    }
-
-
-}
 
 GraphicsScene::GraphicsScene(QObject *parent)
     :QGraphicsScene(parent)
 {
-
+    renderScene();
 }
 
 QList<QPointF> TreeArea::pointList() const
@@ -86,62 +91,56 @@ QList<QPointF> TreeArea::pointList() const
 
 } // namespace Widget
 
-
-void Widget::GraphicsView::mouseMoveEvent(QMouseEvent *event)
+void Widget::GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    if( mCurrentElementType == ElementItem::tree ){
-        if( mDrawingLineItem ){
-            mLineF.setP2(QPointF(event->pos().x(),event->pos().y()));
-            mDrawingLineItem->setLine(mLineF);
-//            mScene->update();
-        }
-    }
+            if( mCurrentElementType == ElementItem::tree ){
+                if( mDrawingLineItem ){
+                    mLineF.setP2(QPointF(event->scenePos().x(),event->scenePos().y()));
+                    mDrawingLineItem->setLine(mLineF);
+                }
+            }
 }
 
-
-void Widget::GraphicsView::mouseReleaseEvent(QMouseEvent *event)
+void Widget::GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if( mCurrentElementType == ElementItem::tree ){
         if( !mDrawingLineItem ){
             mPolygon.clear();
 
-            mLineF.setP1(QPointF(event->pos().x(),event->pos().y()));
-            mLineF.setP2(QPointF(event->pos().x(),event->pos().y()));
-            mDrawingLineItem = mScene->addLine(mLineF);
+            mLineF.setP1(QPointF(event->scenePos().x(),event->scenePos().y()));
+            mLineF.setP2(QPointF(event->scenePos().x(),event->scenePos().y()));
+            mDrawingLineItem = this->addLine(mLineF);
 
-            mPolygon.append(QPoint(event->pos().x(),event->pos().y()));
+            mPolygon.append(QPoint(event->scenePos().x(),event->scenePos().y()));
 
         }else{
-            mLineF.setP1(QPointF(event->pos().x(),event->pos().y()));
-            mLineF.setP2(QPointF(event->pos().x(),event->pos().y()));
-            mDrawingLineItem = mScene->addLine(mLineF);
-            mPolygon.append(QPoint(event->pos().x(),event->pos().y()));
+            mLineF.setP1(QPointF(event->scenePos().x(),event->scenePos().y()));
+            mLineF.setP2(QPointF(event->scenePos().x(),event->scenePos().y()));
+            mDrawingLineItem = this->addLine(mLineF);
+            mPolygon.append(QPoint(event->scenePos().x(),event->scenePos().y()));
         }
     }
 }
 
-
-void Widget::GraphicsView::mouseDoubleClickEvent(QMouseEvent *event)
+void Widget::GraphicsScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
-    if( mCurrentElementType == ElementItem::tree ){
+        if( mCurrentElementType == ElementItem::tree ){
 
-        ForestItem* MmForestItem = new ForestItem();
+            ForestItem* MmForestItem = new ForestItem();
 
-        MmForestItem->setArea(mPolygon.pointList());
+            MmForestItem->setArea(mPolygon);
 
-        mForestItemList.push_back(MmForestItem);
+            mForestItemList.push_back(MmForestItem);
 
-        mPolygon.clear();
+            mPolygon.clear();
 
-//        mPolygonList.push_back(mPolygon);
-
-        mScene->addItem(MmForestItem);
-        MmForestItem->setPos(MmForestItem->getPosition());
-        mScene->removeItem(mDrawingLineItem);
-        mDrawingLineItem = nullptr;
-
-    }
-
-    this->setCurrentDrawingElement(ElementItem::null);
-//    this->renderScene();
+            this->addItem(MmForestItem);
+            MmForestItem->setPos(MmForestItem->getPosition());
+            this->removeItem(mDrawingLineItem);
+            mDrawingLineItem = nullptr;
+        }
+        this->setCurrentElementType(ElementItem::null);
 }
+
+
+

@@ -81,31 +81,15 @@ private:
     GraphicsScene* mScene;
     ElementItem mCurrentElementType;
 
-    TreeArea mPolygon;
-    QList<TreeArea> mPolygonList;
-
 
     ForestItem* mForestItem{nullptr};
     QList<ForestItem*> mForestItemList;
 
-    void renderScene();
 
     QGraphicsLineItem* mDrawingLineItem;
     QLineF mLineF;
 
 
-
-
-    // QWidget interface
-protected:
-    virtual void mouseMoveEvent(QMouseEvent *event) override;
-
-
-    virtual void mouseReleaseEvent(QMouseEvent *event) override;
-
-    // QWidget interface
-protected:
-    virtual void mouseDoubleClickEvent(QMouseEvent *event) override;
 };
 
 
@@ -114,6 +98,28 @@ class GraphicsScene : public QGraphicsScene
 {
 public:
     GraphicsScene(QObject* parent = nullptr );
+
+    // QGraphicsScene interface
+    void setCurrentElementType(ElementItem newCurrentElementType);
+
+    void renderScene();
+
+
+protected:
+    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
+    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+    virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+
+private:
+    QList<QPointF> mPolygon;
+
+    ElementItem mCurrentElementType;
+
+    ForestItem* mForestItem{nullptr};
+    QList<ForestItem*> mForestItemList;
+
+    QGraphicsLineItem* mDrawingLineItem;
+    QLineF mLineF;
 };
 
 } // namespace Widget
