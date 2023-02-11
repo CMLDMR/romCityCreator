@@ -4,5 +4,6 @@
     </qresource>
     <qresource prefix="/">
         <file>bin/asset/tree/tree1.png</file>
+        <file>bin/asset/floor.jpg</file>
     </qresource>
 </RCC>
