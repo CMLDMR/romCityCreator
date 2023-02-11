@@ -15,21 +15,14 @@ ForestItem::ForestItem()
 
 QRectF Widget::ForestItem::boundingRect() const
 {
-
-    return QRectF(-100,-100,this->AreaWidth()+200,this->AreaHeight()+200);
+    return QRectF(-totalWidth/2,-totalHeight,this->AreaWidth()+totalWidth,this->AreaHeight()+totalHeight);
 }
 
 void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 
-    Assets::Tree::Tree *tree;
-
-    tree    = new Assets::Tree::Tree(Assets::Tree::TreeType::pine);
-
-
-
     painter->drawText(0,0,"Forest Area");
-    painter->drawText(-40,-35,"Rendering Area");
+    painter->drawText(-totalWidth/2,-totalHeight+20,"Rendering Area");
 
     painter->setPen(QPen(Qt::GlobalColor::red));
     painter->drawRect(this->boundingRect());
@@ -39,20 +32,18 @@ void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
     painter->setPen(QPen(Qt::GlobalColor::black));
     painter->drawPolygon(polygonArea());
 
-    QPixmap treePixmap(tree->assetPath().c_str());
     this->populateEcosystem();
 
-
-//    for( const auto &point : this->plantPoints() ){
-//        painter->drawRect(point.x(),point.y(),3,3);
-
-//        painter->drawPixmap(point.x()-tree->assetWidth()/2,point.y()-tree->assetHeight(),treePixmap);
-//    }
+//    totalWidth = 0;
+//    totalHeight = 0;
 
     for( const auto &[point,width,height,path] : this->plantList() ){
         painter->drawRect(point.x(),point.y(),3,3);
-
+        qDebug() << path.c_str();
         painter->drawPixmap(point.x()-width/2,point.y()-height,QPixmap(path.c_str()));
+        totalWidth = totalWidth < width ? width : totalWidth;
+        totalHeight = totalHeight < height ? height : totalHeight;
     }
 
+//    this->update();
 }
