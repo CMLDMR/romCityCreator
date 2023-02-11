@@ -11,7 +11,7 @@ class Forest : public LandScape::Area
 public:
     Forest();
 
-    void populateEcosystem();
+    void populateForest();
 
     QList<QPointF> plantPoints() const;
 

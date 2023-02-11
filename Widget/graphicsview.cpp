@@ -17,7 +17,6 @@ namespace Widget {
 void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
 {
     mCurrentElementType = newCurrentElementType;
-
 }
 
 void GraphicsScene::renderScene()
@@ -49,6 +48,9 @@ GraphicsView::GraphicsView(QWidget *parent)
     mScene->installEventFilter(this);
 
     this->setScene(mScene);
+
+    this->setViewportUpdateMode(ViewportUpdateMode::FullViewportUpdate);
+
 }
 
 void GraphicsView::setCurrentDrawingElement(const ElementItem &itemType)
@@ -60,6 +62,12 @@ void GraphicsView::setCurrentDrawingElement(const ElementItem &itemType)
         break;
 
     case ElementItem::tree:
+    {
+        QPixmap cursorPix(":/icon/bin/icon/icons8-arrow-cursor-91.png");
+        QCursor cursor(cursorPix,0,0);
+        this->setCursor(cursor);
+    }
+    case ElementItem::mountain:
     {
         QPixmap cursorPix(":/icon/bin/icon/icons8-arrow-cursor-91.png");
         QCursor cursor(cursorPix,0,0);
@@ -91,6 +99,12 @@ void Widget::GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
             mDrawingLineItem->setLine(mLineF);
         }
     }
+
+    if( mCurrentElementType == ElementItem::mountain ){
+        if( mMountainItem ){
+            mMountainItem->setPos(QPointF(event->scenePos().x(),event->scenePos().y()));
+        }
+    }
 }
 
 void Widget::GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -102,6 +116,7 @@ void Widget::GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             mLineF.setP1(QPointF(event->scenePos().x(),event->scenePos().y()));
             mLineF.setP2(QPointF(event->scenePos().x(),event->scenePos().y()));
             mDrawingLineItem = this->addLine(mLineF);
+            mDrawingLineItemList.push_back(mDrawingLineItem);
 
             mPolygon.append(QPoint(event->scenePos().x(),event->scenePos().y()));
 
@@ -109,7 +124,20 @@ void Widget::GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             mLineF.setP1(QPointF(event->scenePos().x(),event->scenePos().y()));
             mLineF.setP2(QPointF(event->scenePos().x(),event->scenePos().y()));
             mDrawingLineItem = this->addLine(mLineF);
+                        mDrawingLineItemList.push_back(mDrawingLineItem);
             mPolygon.append(QPoint(event->scenePos().x(),event->scenePos().y()));
+        }
+    }
+
+    if( mCurrentElementType == ElementItem::mountain ){
+        if( !mMountainItem ){
+
+            mMountainItem = new MountainItem();
+            this->addItem(mMountainItem);
+            mMountainItem->setPos(QPointF(event->scenePos().x(),event->scenePos().y()));
+
+        }else{
+            mMountainItem->setPos(QPointF(event->scenePos().x(),event->scenePos().y()));
         }
     }
 }
@@ -128,8 +156,15 @@ void Widget::GraphicsScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *even
 
         this->addItem(MmForestItem);
         MmForestItem->setPos(MmForestItem->getPosition());
-        this->removeItem(mDrawingLineItem);
+        for( auto item : mDrawingLineItemList ){
+            this->removeItem(item);
+        }
         mDrawingLineItem = nullptr;
+    }
+
+
+    if( mCurrentElementType == ElementItem::mountain ){
+        mMountainItem = nullptr;
     }
     this->setCurrentElementType(ElementItem::null);
 }

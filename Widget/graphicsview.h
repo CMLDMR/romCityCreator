@@ -9,6 +9,7 @@
 
 
 #include "forestitem.h"
+#include "mountainitem.h"
 
 
 class QGraphicsLineItem;
@@ -17,56 +18,11 @@ namespace Widget {
 
 class GraphicsScene;
 
-
-
-
-
 enum class ElementItem{
     null = 0,
-    tree
+    tree,
+    mountain
 };
-
-
-//class TreeArea
-//{
-//public:
-//    TreeArea(){}
-
-
-//    QList<QPointF> pointList() const;
-
-//    void append( const QPointF &point){
-//        mPList.append(point);
-//    }
-
-//    void clear(){
-//        mPList.clear();
-//    }
-
-//private:
-//    QList<QPointF> mPList;
-
-
-//};
-
-
-
-//static int randomGenerator( const int &min, const int &max ){
-
-//    // Seed with a real random value, if available
-//    std::random_device r;
-
-//    // Choose a random mean between 1 and 6
-//    std::default_random_engine e1(r());
-//    std::uniform_int_distribution<int> uniform_dist(min, max);
-//    int mean = uniform_dist(e1);
-//    return mean;
-
-//}
-
-
-
-
 
 
 class GraphicsView : public QGraphicsView
@@ -74,23 +30,11 @@ class GraphicsView : public QGraphicsView
     Q_OBJECT
 public:
     GraphicsView(QWidget* parent = nullptr );
-
     void setCurrentDrawingElement(const ElementItem &itemType);
-
 
 private:
     GraphicsScene* mScene;
     ElementItem mCurrentElementType;
-
-
-//    ForestItem* mForestItem{nullptr};
-//    QList<ForestItem*> mForestItemList;
-
-
-//    QGraphicsLineItem* mDrawingLineItem;
-//    QLineF mLineF;
-
-
 };
 
 
@@ -122,6 +66,10 @@ private:
 
     QGraphicsLineItem* mDrawingLineItem;
     QLineF mLineF;
+    QList<QGraphicsLineItem*> mDrawingLineItemList;
+
+
+    MountainItem* mMountainItem{nullptr};
 };
 
 } // namespace Widget

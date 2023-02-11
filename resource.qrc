@@ -13,5 +13,10 @@
         <file>bin/asset/tree/tree7.png</file>
         <file>bin/asset/tree/tree8.png</file>
         <file>bin/asset/tree/tree9.png</file>
+        <file>bin/asset/tree/tree10.png</file>
+    </qresource>
+    <qresource prefix="/mountain">
+        <file>bin/asset/mountain/m1.png</file>
+        <file>bin/asset/mountain/m2.png</file>
     </qresource>
 </RCC>
