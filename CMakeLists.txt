@@ -12,19 +12,35 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
-set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-        Widget/graphicsview.h Widget/graphicsview.cpp
-        resource.qrc
-)
+include_directories("${CMAKE_SOURCE_DIR}")
+
+file(GLOB_RECURSE HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/*.h)
+file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
+file(GLOB_RECURSE RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.qrc)
+
+
+#set(PROJECT_SOURCES
+#        main.cpp
+#        mainwindow.cpp
+#        mainwindow.h
+#        mainwindow.ui
+#        Widget/graphicsview.h Widget/graphicsview.cpp
+#        Widget/treeitem.h Widget/treeitem.cpp
+#        resource.qrc
+#        Asset/asset.h Asset/asset.cpp
+#        Asset/tree.h Asset/tree.cpp
+#        Asset/plant.h Asset/plant.cpp
+#        Asset/forest.h Asset/forest.cpp
+#        Asset/area.h Asset/area.cpp
+#)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(CityCreator
         MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
+#        ${PROJECT_SOURCES}
+        ${HEADERS}
+        ${SOURCES}
+        ${RESOURCES}
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET CityCreator APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

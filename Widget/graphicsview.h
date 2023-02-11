@@ -8,6 +8,9 @@
 #include <random>
 
 
+#include "forestitem.h"
+
+
 class QGraphicsLineItem;
 
 namespace Widget {
@@ -82,6 +85,8 @@ private:
     QList<TreeArea> mPolygonList;
 
 
+    ForestItem* mForestItem{nullptr};
+    QList<ForestItem*> mForestItemList;
 
     void renderScene();
 
