@@ -35,9 +35,9 @@ void Forest::populateEcosystem()
                     treeCount++;
                     auto _random = LandScape::randomGenerator(0,255);
                     if( _random%2 == 0 ){
-                        mPlantList.push_back(std::make_tuple(QPointF(i+modX,j+modY),49,94,"://bin/asset/tree/tree1.png"));
+                        mPlantList.push_back(std::make_tuple(QPointF(i+modX,j+modY),100,93,"://bin/asset/tree/tree1.png"));
                     }else{
-                        mPlantList.push_back(std::make_tuple(QPointF(i+modX,j+modY),50,58,"://bin/asset/tree/tree2.png"));
+                        mPlantList.push_back(std::make_tuple(QPointF(i+modX,j+modY),120,100,"://bin/asset/tree/tree2.png"));
                     }
                 }
             }else{
