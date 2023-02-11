@@ -16,7 +16,7 @@ ForestItem::ForestItem()
 QRectF Widget::ForestItem::boundingRect() const
 {
 
-    return QRectF(-40,-50,this->AreaWidth()+60+20,this->AreaHeight()+50);
+    return QRectF(-100,-100,this->AreaWidth()+200,this->AreaHeight()+200);
 }
 
 void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
