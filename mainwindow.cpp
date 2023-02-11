@@ -17,6 +17,10 @@ MainWindow::MainWindow(QWidget *parent)
         mGraphicsView->setCurrentDrawingElement(Widget::ElementItem::tree);
     });
 
+    QObject::connect(ui->pushButton_Mountain,&QPushButton::clicked,[=](){
+        mGraphicsView->setCurrentDrawingElement(Widget::ElementItem::mountain);
+    });
+
 
     QObject::connect(ui->pushButton_zoomin,&QPushButton::clicked,[=](){
         mGraphicsView->scale(1.25,1.25);

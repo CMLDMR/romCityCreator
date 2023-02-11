@@ -20,7 +20,7 @@ Forest::Forest()
 
 }
 
-void Forest::populateEcosystem()
+void Forest::populateForest()
 {
     qDebug() << "Populating...";
     if( mPlantList.size() ) return;
@@ -41,7 +41,7 @@ void Forest::populateEcosystem()
                 areaCount++;
                 auto modY = LandScape::randomGenerator(-20,20);
                 auto modX = LandScape::randomGenerator(-20,20);
-                if( i%25 == 0 && j%25 == 0 ){
+                if( i%50 == 0 && j%50 == 0 ){
 
                     treeCount++;
                     auto _random = LandScape::randomGenerator(0,100);
