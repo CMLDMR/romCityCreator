@@ -1,0 +1,61 @@
+\hypertarget{area_8h_source}{}\doxysection{area.\+h}
+\label{area_8h_source}\index{D:/Wt-\/Sample/Sample/CityCreator/CityCreator/Asset/area.h@{D:/Wt-\/Sample/Sample/CityCreator/CityCreator/Asset/area.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ LANDSCAPE\_AREA\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ LANDSCAPE\_AREA\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QList>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QPointF>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QPolygonF>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }LandScape\ \{}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ [[maybe\_unused]]}
+\DoxyCodeLine{00012\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ randomGenerator(\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&min,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&max\ )\{}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ Seed\ with\ a\ real\ random\ value,\ if\ available}}
+\DoxyCodeLine{00015\ \ \ \ \ std::random\_device\ r;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ Choose\ a\ random\ mean\ between\ 1\ and\ 6}}
+\DoxyCodeLine{00018\ \ \ \ \ std::default\_random\_engine\ e1(r());}
+\DoxyCodeLine{00019\ \ \ \ \ std::uniform\_int\_distribution<int>\ uniform\_dist(min,\ max);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ mean\ =\ uniform\_dist(e1);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{return}\ mean;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_land_scape_1_1_area}{Area}}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_land_scape_1_1_area}{Area}}();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ setArea(\textcolor{keyword}{const}\ QList<QPointF>\ \&newArea);}
+\DoxyCodeLine{00031\ \ \ \ \ QList<QPointF>\ getArea()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00032\ \ \ \ \ QPolygonF\ polygonArea()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ QPointF\ getPosition()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{int}\ AreaWidth()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{int}\ AreaHeight()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00041\ \ \ \ \ QList<QPointF>\ mArea;}
+\DoxyCodeLine{00042\ \ \ \ \ QPolygonF\ mPolygonArea;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{int}\ xPos;}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{int}\ yPos;}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{//TODO\ Item\ Distrubution\ class}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \}\ \textcolor{comment}{//\ namespace\ LandScape}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ LANDSCAPE\_AREA\_H}}
+
+\end{DoxyCode}

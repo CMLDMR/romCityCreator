@@ -2,6 +2,7 @@
 #define ASSETS_TERAIN_MOUNTAIN_H
 
 #include "Asset/area.h"
+#include "asset.h"
 
 namespace Assets {
 namespace Terrain {

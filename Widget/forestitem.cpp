@@ -20,28 +20,10 @@ QRectF Widget::ForestItem::boundingRect() const
 
 void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-
-//    painter->drawText(0,0,"Forest Area");
-//    painter->drawText(-totalWidth/2,-totalHeight+20,"Rendering Area");
-
-//    painter->setPen(QPen(Qt::GlobalColor::red));
-//    painter->drawRect(this->boundingRect());
-//    painter->setPen(QPen(Qt::GlobalColor::green));
-//    painter->drawRect(QRectF(0,0,this->AreaWidth(),this->AreaHeight()));
-
-//    painter->setPen(QPen(Qt::GlobalColor::black));
-//    painter->drawPolygon(polygonArea());
-
-
-
-
     this->populateForest();
-
-    for( const auto &[point,width,height,path] : this->plantList() ){
-//        painter->drawRect(point.x(),point.y(),3,3);
-//        qDebug() << path.c_str();
-        painter->drawPixmap(point.x()-width/2,point.y()-height,QPixmap(path.c_str()));
-        totalWidth = totalWidth < width ? width : totalWidth;
-        totalHeight = totalHeight < height ? height : totalHeight;
+    for( const auto &[point,asset] : this->getPopulation() ){
+        painter->drawPixmap(point.x()-asset.assetWidth()/2,point.y()-asset.assetHeight(),QPixmap(asset.assetPath().c_str()));
+        totalWidth = totalWidth < asset.assetWidth() ? asset.assetWidth() : totalWidth;
+        totalHeight = totalHeight < asset.assetHeight() ? asset.assetHeight() : totalHeight;
     }
 }

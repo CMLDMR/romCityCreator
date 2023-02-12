@@ -5,7 +5,6 @@ namespace Widget {
 namespace GraphicsItem {
 
 TreeItem::TreeItem()
-    :Assets::Tree::Tree(Assets::Tree::TreeType::akasya)
 {
 
 }

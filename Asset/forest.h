@@ -1,29 +1,16 @@
 #ifndef ASSETS_PLANT_FOREST_H
 #define ASSETS_PLANT_FOREST_H
-#include "Asset/area.h"
-#include <tuple>
+#include "Ecosystem/population.h"
 
 namespace Assets {
 namespace Plant {
 
-class Forest : public LandScape::Area
+class Forest : public Ecosystem::Population
 {
 public:
     Forest();
 
     void populateForest();
-
-    QList<QPointF> plantPoints() const;
-
-    QList<std::tuple<QPointF, int, int, std::string> > plantList() const;
-
-private:
-    QList<QPointF> mPlantPoints;
-
-    QList<std::tuple<QPointF,int,int,std::string>> mPlantList;
-
-    QStringList mAssetPathList;
-
 };
 
 } // namespace Plant

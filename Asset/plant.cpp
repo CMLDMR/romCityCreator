@@ -4,8 +4,8 @@ namespace Assets {
 
 namespace Plant{
 
-Plant::Plant(const PlantType &_type)
-    :mType(_type)
+Plant::Plant(const AssetType &_type)
+    :Assets::Asset(_type)
 {
 
 }
