@@ -3,6 +3,7 @@
 
 #include "plant.h"
 
+
 namespace Assets {
 
 namespace Plant{
@@ -11,25 +12,37 @@ class Forest;
 
 namespace Tree {
 
-enum class TreeType{
-    akasya,
-    pine
-};
 
 class Tree : public Assets::Plant::Plant
 {
 public:
-    Tree(const TreeType &_treeType );
+    Tree( );
+
+    Tree &operator=( const Tree &other);
+
+    Tree( const std::string &path );
+};
 
 
-private:
-    TreeType mTreeType;
+class TreeTypeList : public Assets::AssetTypeList<Assets::Tree::Tree>{
 
-    friend class Assets::Plant::Forest;
+    inline static TreeTypeList* mPtr;
+    inline static std::once_flag flag1;
 
-    void setTreeTypePath(const TreeType &_type);
+    static void initSingleton();
+    TreeTypeList();
+public:
+
+
+    inline static TreeTypeList &instance(){
+        std::call_once(flag1, &initSingleton);
+        return *mPtr;
+    }
+
+
 
 };
+
 
 }
 

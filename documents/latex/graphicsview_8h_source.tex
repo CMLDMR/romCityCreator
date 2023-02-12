@@ -1,0 +1,83 @@
+\hypertarget{graphicsview_8h_source}{}\doxysection{graphicsview.\+h}
+\label{graphicsview_8h_source}\index{D:/Wt-\/Sample/Sample/CityCreator/CityCreator/Widget/graphicsview.h@{D:/Wt-\/Sample/Sample/CityCreator/CityCreator/Widget/graphicsview.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ WIDGET\_GRAPHICSVIEW\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ WIDGET\_GRAPHICSVIEW\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QGraphicsView>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QGraphicsScene>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <QList>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QPolygon>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}forestitem.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}mountainitem.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }QGraphicsLineItem;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{namespace\ }Widget\ \{}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }GraphicsScene;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{enum\ class}\ ElementItem\{}
+\DoxyCodeLine{00022\ \ \ \ \ null\ =\ 0,}
+\DoxyCodeLine{00023\ \ \ \ \ tree,}
+\DoxyCodeLine{00024\ \ \ \ \ mountain}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_widget_1_1_graphics_view}{GraphicsView}}\ :\ \textcolor{keyword}{public}\ QGraphicsView}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_widget_1_1_graphics_view}{GraphicsView}}(QWidget*\ parent\ =\ \textcolor{keyword}{nullptr}\ );}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{void}\ setCurrentDrawingElement(\textcolor{keyword}{const}\ ElementItem\ \&itemType);}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_widget_1_1_graphics_scene}{GraphicsScene}}*\ mScene;}
+\DoxyCodeLine{00037\ \ \ \ \ ElementItem\ mCurrentElementType;}
+\DoxyCodeLine{00038\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_widget_1_1_graphics_scene}{GraphicsScene}}\ :\ \textcolor{keyword}{public}\ QGraphicsScene}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00045\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_widget_1_1_graphics_scene}{GraphicsScene}}(QObject*\ parent\ =\ \textcolor{keyword}{nullptr}\ );}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//\ QGraphicsScene\ interface}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ setCurrentElementType(ElementItem\ newCurrentElementType);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ renderScene();}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ mouseMoveEvent(QGraphicsSceneMouseEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ mouseReleaseEvent(QGraphicsSceneMouseEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ mouseDoubleClickEvent(QGraphicsSceneMouseEvent\ *event)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00060\ \ \ \ \ QList<QPointF>\ mPolygon;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ ElementItem\ mCurrentElementType;}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{class_widget_1_1_forest_item}{ForestItem}}*\ mForestItem\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00065\ \ \ \ \ QList<ForestItem*>\ mForestItemList;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ QGraphicsLineItem*\ mDrawingLineItem;}
+\DoxyCodeLine{00068\ \ \ \ \ QLineF\ mLineF;}
+\DoxyCodeLine{00069\ \ \ \ \ QList<QGraphicsLineItem*>\ mDrawingLineItemList;}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{class_widget_1_1_mountain_item}{MountainItem}}*\ mMountainItem\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \}\ \textcolor{comment}{//\ namespace\ Widget}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ WIDGET\_GRAPHICSVIEW\_H}}
+
+\end{DoxyCode}

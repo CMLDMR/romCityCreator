@@ -4,7 +4,8 @@
 
 namespace Assets {
 
-Asset::Asset()
+Asset::Asset(const AssetType &type)
+    :mAssetType(type)
 {
 
 }
@@ -41,5 +42,12 @@ void Asset::setAssetHeight(int newAssetHeight)
 {
     mAssetHeight = newAssetHeight;
 }
+
+AssetType Asset::assetType() const
+{
+    return mAssetType;
+}
+
+
 
 } // namespace Assets

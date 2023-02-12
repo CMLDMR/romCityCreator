@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "Asset/tree.h"
 
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -8,6 +10,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    auto list = Assets::Tree::TreeTypeList::instance().list();
+
+    qDebug()  << "Asset" << list.size();
+    for( const auto &asset : list ){
+        qDebug() << static_cast<int>(asset.assetType()) << asset.assetPath().c_str() << asset.assetWidth() << asset.assetHeight();
+    }
 
     mGraphicsView = new Widget::GraphicsView(this);
 

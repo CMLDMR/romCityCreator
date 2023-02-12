@@ -1,0 +1,14 @@
+digraph "Assets::Plant::Plant"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  Node1 [label="Assets::Plant::Plant",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="steelblue1",style="solid"];
+  Node2 [label="Assets::Asset",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",URL="$class_assets_1_1_asset.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="steelblue1",style="solid"];
+  Node3 [label="Assets::Tree::Tree",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",URL="$class_assets_1_1_tree_1_1_tree.html",tooltip=" "];
+  Node3 -> Node4 [dir="back",color="steelblue1",style="solid"];
+  Node4 [label="Widget::GraphicsItem\l::TreeItem",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",URL="$class_widget_1_1_graphics_item_1_1_tree_item.html",tooltip=" "];
+}
