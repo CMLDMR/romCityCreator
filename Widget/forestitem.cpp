@@ -20,7 +20,6 @@ QRectF Widget::ForestItem::boundingRect() const
 
 void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    this->populateForest();
     for( const auto &[point,asset] : this->getPopulation() ){
         painter->drawPixmap(point.x()-asset.assetWidth()/2,point.y()-asset.assetHeight(),QPixmap(asset.assetPath().c_str()));
         totalWidth = totalWidth < asset.assetWidth() ? asset.assetWidth() : totalWidth;

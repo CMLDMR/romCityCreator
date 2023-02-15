@@ -37,6 +37,12 @@ public:
     int AreaHeight() const;
 
 
+    int getYPos() const;
+    void setYPos(int newYPos);
+
+    int getXPos() const;
+    void setXPos(int newXPos);
+
 private:
     QList<QPointF> mArea;
     QPolygonF mPolygonArea;

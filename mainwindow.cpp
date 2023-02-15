@@ -25,6 +25,10 @@ MainWindow::MainWindow(QWidget *parent)
         mGraphicsView->setCurrentDrawingElement(Widget::ElementItem::tree);
     });
 
+    QObject::connect(ui->pushButton_TreeArea_Random,&QPushButton::clicked,[=](){
+        mGraphicsView->setCurrentDrawingElement(Widget::ElementItem::randomAreaTree);
+    });
+
     QObject::connect(ui->pushButton_Mountain,&QPushButton::clicked,[=](){
         mGraphicsView->setCurrentDrawingElement(Widget::ElementItem::mountain);
     });
