@@ -17,6 +17,49 @@ namespace Widget {
 void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
 {
     mCurrentElementType = newCurrentElementType;
+
+    if( ElementItem::randomAreaTree == mCurrentElementType )
+    {
+
+        if( mForestItemList.size() ){
+            for( auto item : mForestRandomAreaItemList ){
+                this->removeItem(item);
+            }
+        }
+
+        {
+            ForestItem* MmForestItem = new ForestItem();
+
+            MmForestItem->setXPos(2250-500);
+            MmForestItem->setYPos(2250-500);
+
+            MmForestItem->populateRandomArea(1000,1000);
+
+            mEcosystem->append(*MmForestItem);
+
+            mForestRandomAreaItemList.push_back(MmForestItem);
+
+            this->addItem(MmForestItem);
+            MmForestItem->setPos(MmForestItem->getPosition());
+        }
+
+        {
+            ForestItem* MmForestItem = new ForestItem();
+
+            MmForestItem->setXPos(750-500);
+            MmForestItem->setYPos(750-500);
+
+            MmForestItem->populateRandomArea(1000,1000);
+
+            mEcosystem->append(*MmForestItem);
+
+            mForestRandomAreaItemList.push_back(MmForestItem);
+
+            this->addItem(MmForestItem);
+            MmForestItem->setPos(MmForestItem->getPosition());
+        }
+
+    }
 }
 
 void GraphicsScene::renderScene()
@@ -80,6 +123,8 @@ void GraphicsView::setCurrentDrawingElement(const ElementItem &itemType)
         QCursor cursor(cursorPix,0,0);
         this->setCursor(cursor);
     }
+
+
         break;
     default:
         break;

@@ -18,6 +18,7 @@ void Forest::populateForest()
     Ecosystem::Populator::instance()->Generate<Assets::Tree::Tree>(Assets::Tree::TreeTypeList::instance(),*this);
 }
 
+//TODO: Padding Forest Eklenecek
 void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
 {
 
@@ -30,7 +31,7 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
     const int w = 60;
     const int h = 60;
 
-    for( int i = 0 ; i < 20 ; i++ ){
+    for( int i = 0 ; i < 10 ; i++ ){
 
         auto x = QRandomGenerator::global()->generate()%maxWidth;
         auto y = QRandomGenerator::global()->generate()%maxHeight;
