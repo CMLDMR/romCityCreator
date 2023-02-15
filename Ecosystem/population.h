@@ -59,9 +59,9 @@ public:
                 auto _yPos = j;
 
                 if( _mPopulation.polygonArea().containsPoint(QPointF(_xPos,_yPos),Qt::FillRule::OddEvenFill ) ){
-                    auto modY = LandScape::randomGenerator(-20,20);
-                    auto modX = LandScape::randomGenerator(-20,20);
-                    if( i%50 == 0 && j%50 == 0 ){
+                    auto modY = LandScape::randomGenerator(-10,10);
+                    auto modX = LandScape::randomGenerator(-10,10);
+                    if( i%20 == 0 && j%20 == 0 ){
                         auto _random = LandScape::randomGenerator(0,100);
                         auto asset = _assetList.list()[_random%_assetList.list().size()];
                         _mPopulation.getPopulation().push_back(std::make_tuple(QPointF(i+modX,j+modY),asset));

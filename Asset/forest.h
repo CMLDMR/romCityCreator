@@ -1,5 +1,6 @@
 #ifndef ASSETS_PLANT_FOREST_H
 #define ASSETS_PLANT_FOREST_H
+
 #include "Ecosystem/population.h"
 
 namespace Assets {
@@ -11,6 +12,8 @@ public:
     Forest();
 
     void populateForest();
+
+    void populateRandomArea( const int maxWidth = 500 , const int maxHeight = 500 );
 };
 
 } // namespace Plant

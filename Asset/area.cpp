@@ -19,15 +19,10 @@ void Area::setArea(const QList<QPointF> &newArea)
         miny = miny > item.y() ? item.y() : miny;
     }
 
-    xPos = minx;
-    yPos = miny;
-
-
     this->mArea.clear();
     for( const auto &point : newArea ){
         this->mArea.push_back(QPointF(point.x()-minx,point.y()-miny));
     }
-//    this->mArea = newArea;
     this->mPolygonArea.append(this->mArea);
 }
 
@@ -68,6 +63,26 @@ int Area::AreaHeight() const
     }
 
     return maxy-miny;
+}
+
+int Area::getYPos() const
+{
+    return yPos;
+}
+
+void Area::setYPos(int newYPos)
+{
+    yPos = newYPos;
+}
+
+int Area::getXPos() const
+{
+    return xPos;
+}
+
+void Area::setXPos(int newXPos)
+{
+    xPos = newXPos;
 }
 
 

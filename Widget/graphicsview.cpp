@@ -33,6 +33,12 @@ void GraphicsScene::renderScene()
         addItem(forestItem);
         forestItem->setPos(forestItem->getPosition());
     }
+
+    for( const auto &forestItem : mForestRandomAreaItemList ){
+        addItem(forestItem);
+        forestItem->setPos(forestItem->getPosition());
+    }
+
 }
 
 
@@ -40,6 +46,7 @@ void GraphicsScene::renderScene()
 GraphicsView::GraphicsView(QWidget *parent)
     :QGraphicsView(parent)
 {
+
 
     this->setMouseTracking(true);
 
@@ -84,6 +91,8 @@ void GraphicsView::setCurrentDrawingElement(const ElementItem &itemType)
 GraphicsScene::GraphicsScene(QObject *parent)
     :QGraphicsScene(parent)
 {
+    mEcosystem = std::make_unique<Ecosystem::Ecosystem>();
+
     renderScene();
 }
 
@@ -146,9 +155,26 @@ void Widget::GraphicsScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *even
 {
     if( mCurrentElementType == ElementItem::tree ){
 
+
         ForestItem* MmForestItem = new ForestItem();
 
         MmForestItem->setArea(mPolygon);
+
+        int minx = INT32_MAX;
+        int miny = INT32_MAX;
+
+        for( const auto &item : mPolygon ){
+            minx = minx > item.x() ? item.x() : minx;
+            miny = miny > item.y() ? item.y() : miny;
+        }
+
+
+        MmForestItem->setXPos(minx);
+        MmForestItem->setYPos(miny);
+
+        MmForestItem->populateForest();
+
+        mEcosystem->append(*MmForestItem);
 
         mForestItemList.push_back(MmForestItem);
 
@@ -160,6 +186,29 @@ void Widget::GraphicsScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *even
             this->removeItem(item);
         }
         mDrawingLineItem = nullptr;
+    }
+
+    if( mCurrentElementType == ElementItem::randomAreaTree ){
+
+        ForestItem* MmForestItem = new ForestItem();
+
+
+        MmForestItem->setXPos(event->scenePos().x()-500);
+        MmForestItem->setYPos(event->scenePos().y()-500);
+
+        MmForestItem->populateRandomArea(1000,1000);
+//        MmForestItem->setX(event->scenePos().x());
+//        MmForestItem->setY(event->scenePos().y());
+
+        mEcosystem->append(*MmForestItem);
+
+        mForestRandomAreaItemList.push_back(MmForestItem);
+
+        mPolygon.clear();
+
+        this->addItem(MmForestItem);
+        MmForestItem->setPos(MmForestItem->getPosition());
+
     }
 
 

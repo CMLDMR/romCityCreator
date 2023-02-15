@@ -41,6 +41,13 @@
         </widget>
        </item>
        <item>
+        <widget class="QPushButton" name="pushButton_TreeArea_Random">
+         <property name="text">
+          <string>Tree Random Area</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButton_Mountain">
          <property name="text">
           <string>Mountain</string>

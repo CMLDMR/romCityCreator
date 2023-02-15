@@ -6,10 +6,12 @@
 #include <QList>
 #include <QPolygon>
 #include <random>
+#include <memory>
 
 
 #include "forestitem.h"
 #include "mountainitem.h"
+#include "Ecosystem/ecosystem.h"
 
 
 class QGraphicsLineItem;
@@ -21,6 +23,7 @@ class GraphicsScene;
 enum class ElementItem{
     null = 0,
     tree,
+    randomAreaTree,
     mountain
 };
 
@@ -30,7 +33,7 @@ class GraphicsView : public QGraphicsView
     Q_OBJECT
 public:
     GraphicsView(QWidget* parent = nullptr );
-    void setCurrentDrawingElement(const ElementItem &itemType);
+    void setCurrentDrawingElement( const ElementItem &itemType );
 
 private:
     GraphicsScene* mScene;
@@ -46,7 +49,7 @@ public:
     GraphicsScene(QObject* parent = nullptr );
 
     // QGraphicsScene interface
-    void setCurrentElementType(ElementItem newCurrentElementType);
+    void setCurrentElementType( ElementItem newCurrentElementType );
 
     void renderScene();
 
@@ -63,6 +66,9 @@ private:
 
     ForestItem* mForestItem{nullptr};
     QList<ForestItem*> mForestItemList;
+    QList<ForestItem*> mForestRandomAreaItemList;
+
+    std::unique_ptr<Ecosystem::Ecosystem> mEcosystem;
 
     QGraphicsLineItem* mDrawingLineItem;
     QLineF mLineF;
