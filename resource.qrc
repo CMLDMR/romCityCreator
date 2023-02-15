@@ -3,17 +3,7 @@
         <file>bin/icon/icons8-arrow-cursor-91.png</file>
     </qresource>
     <qresource prefix="/">
-        <file>bin/asset/tree/tree1.png</file>
         <file>bin/asset/floor.jpg</file>
-        <file>bin/asset/tree/tree2.png</file>
-        <file>bin/asset/tree/tree3.png</file>
-        <file>bin/asset/tree/tree4.png</file>
-        <file>bin/asset/tree/tree5.png</file>
-        <file>bin/asset/tree/tree6.png</file>
-        <file>bin/asset/tree/tree7.png</file>
-        <file>bin/asset/tree/tree8.png</file>
-        <file>bin/asset/tree/tree9.png</file>
-        <file>bin/asset/tree/tree10.png</file>
     </qresource>
     <qresource prefix="/mountain">
         <file>bin/asset/mountain/m1.png</file>

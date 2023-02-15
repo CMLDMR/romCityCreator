@@ -21,19 +21,24 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
     if( ElementItem::randomAreaTree == mCurrentElementType )
     {
 
-        if( mForestItemList.size() ){
-            for( auto item : mForestRandomAreaItemList ){
-                this->removeItem(item);
-            }
-        }
+        this->clear();
+        addRect(0,0,3000,3000,QPen(QColor(Qt::black)));
+
+        auto floorItem = addPixmap(QPixmap("://bin/asset/floor.jpg"));
+        floorItem->setPos(0,0);
 
         {
             ForestItem* MmForestItem = new ForestItem();
 
-            MmForestItem->setXPos(2250-500);
-            MmForestItem->setYPos(2250-500);
 
-            MmForestItem->populateRandomArea(1000,1000);
+
+            auto _width = LandScape::randomGenerator(600,2000);
+            auto _heigth = LandScape::randomGenerator(600,2000);
+
+            MmForestItem->setXPos(2900-_width);
+            MmForestItem->setYPos(2900-_heigth);
+
+            MmForestItem->populateRandomArea(_width,_heigth);
 
             mEcosystem->append(*MmForestItem);
 
@@ -41,15 +46,17 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
 
             this->addItem(MmForestItem);
             MmForestItem->setPos(MmForestItem->getPosition());
+
+            qDebug() << MmForestItem->getPopulation().size() << MmForestItem->boundingRect().width()*MmForestItem->boundingRect().height();
         }
 
         {
             ForestItem* MmForestItem = new ForestItem();
 
-            MmForestItem->setXPos(750-500);
-            MmForestItem->setYPos(750-500);
+            MmForestItem->setXPos(50);
+            MmForestItem->setYPos(50);
 
-            MmForestItem->populateRandomArea(1000,1000);
+            MmForestItem->populateRandomArea(LandScape::randomGenerator(600,2000),LandScape::randomGenerator(600,2000));
 
             mEcosystem->append(*MmForestItem);
 

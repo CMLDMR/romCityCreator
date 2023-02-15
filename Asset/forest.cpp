@@ -4,6 +4,18 @@
 #include "Asset/tree.h"
 #include "Geometry/concavehull.h"
 #include <QRandomGenerator>
+#include <QtMath>
+#include <QtAlgorithms>
+
+#include <algorithm>
+#include<functional>
+
+
+//TODO: Düzgün Bir Yere QPOintF operator taşınacak
+
+static bool compare( const QPointF &a , const QPointF &b){
+    return a.y() < b.y();
+}
 
 namespace Assets {
 namespace Plant {
@@ -24,17 +36,28 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
 
 
     QList<QPointF> list;
+    QList<QPointF> list2;
 
     QList<QPolygonF> squareList;
 
+    int modd = QRandomGenerator::global()->generate()%200;
 
-    const int w = 60;
-    const int h = 60;
 
-    for( int i = 0 ; i < 10 ; i++ ){
+    const int w = 30;
+    const int h = 30;
+    const int offset = 200;
 
-        auto x = QRandomGenerator::global()->generate()%maxWidth;
-        auto y = QRandomGenerator::global()->generate()%maxHeight;
+    //TODO: Düşük Polygon Sayısı ile Metre Kare Başına Ağaç Hesaplanacak
+    for( int i = 0 ; i < 10/*qSqrt(maxHeight*maxWidth)/4*/ ; i++ ){
+
+        if( i % 10 == 0 ){
+            modd = QRandomGenerator::global()->generate()%offset;
+        }
+
+
+        auto x = QRandomGenerator::global()->generate()%(maxWidth-offset)+modd;
+        auto y = QRandomGenerator::global()->generate()%(maxHeight-offset)+modd;
+        list2.push_back({static_cast<qreal>(x),static_cast<qreal>(y)});
 
         if( squareList.isEmpty() ){
             QPolygonF poly;
@@ -44,8 +67,6 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
 
             poly.append(QPointF(x+w/2,y-h/2));//topright
             poly.append(QPointF(x-w/2,y-h/2));//topleft
-
-
 
             squareList.append(poly);
             list.push_back(QPointF(x,y));
@@ -88,6 +109,22 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
 
 
     auto _assetList = Assets::Tree::TreeTypeList::instance();
+
+
+    std::sort(list2.begin(), list2.end(),compare);
+
+//    for( const auto &point : list2 ){
+//        auto asset = _assetList.list().last();
+//        this->getPopulation().push_back(std::make_tuple(QPointF(point.x(),point.y()),asset));
+//    }
+
+
+    for( const auto &point : list2 ){
+        auto _random = LandScape::randomGenerator(0,10000);
+        auto asset = _assetList.list()[_random%(_assetList.list().size())];
+        this->getPopulation().push_back(std::make_tuple(QPointF(point.x(),point.y()),asset));
+    }
+    return;
 
     if( this->getPopulation().size() ) return;
 

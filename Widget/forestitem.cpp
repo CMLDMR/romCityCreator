@@ -20,9 +20,15 @@ QRectF Widget::ForestItem::boundingRect() const
 
 void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
+//    QPolygonF ply;
     for( const auto &[point,asset] : this->getPopulation() ){
         painter->drawPixmap(point.x()-asset.assetWidth()/2,point.y()-asset.assetHeight(),QPixmap(asset.assetPath().c_str()));
         totalWidth = totalWidth < asset.assetWidth() ? asset.assetWidth() : totalWidth;
         totalHeight = totalHeight < asset.assetHeight() ? asset.assetHeight() : totalHeight;
+//        ply.append(point);
     }
+
+    painter->drawPolygon(this->getArea());
+
+//    painter->drawRect(this->boundingRect());
 }

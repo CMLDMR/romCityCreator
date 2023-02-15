@@ -1,5 +1,9 @@
 #include "tree.h"
 
+#include <QDebug>
+
+#include <QDir>
+
 namespace Assets {
 
 Tree::Tree::Tree()
@@ -29,15 +33,68 @@ void Tree::TreeTypeList::initSingleton()
 Tree::TreeTypeList::TreeTypeList()
 {
 
-    this->append(Tree("://bin/asset/tree/tree1.png"));
-    this->append(Tree("://bin/asset/tree/tree2.png"));
-    this->append(Tree("://bin/asset/tree/tree3.png"));
-    this->append(Tree("://bin/asset/tree/tree4.png"));
-    this->append(Tree("://bin/asset/tree/tree5.png"));
-    this->append(Tree("://bin/asset/tree/tree6.png"));
-    this->append(Tree("://bin/asset/tree/tree7.png"));
-    this->append(Tree("://bin/asset/tree/tree8.png"));
-    this->append(Tree("://bin/asset/tree/tree9.png"));
+
+    QDir dir;
+
+    qDebug() << dir.currentPath();
+
+    if( dir.exists("bin") ){
+        dir.cd("bin");
+        if( dir.exists("asset") ){
+            dir.cd("asset");
+            if( dir.exists("tree") ){
+                dir.cd("tree");
+                for( const auto &item : dir.entryInfoList(QDir::Filter::Files) ){
+                    qDebug() << item.filePath();
+//                    this->append(item.filePath().toStdString());
+                }
+            }else{
+                qDebug() << dir.absolutePath();
+            }
+        }else{
+            qDebug() << dir.absolutePath();
+        }
+        qDebug() << "bin Exist";
+    }else{
+        qDebug() << dir.absolutePath() << "bin";
+    }
+
+    for( int i = 0 ; i < 15 ; i++ ){
+        this->append(std::string("bin/asset/tree/tree001.png"));
+    }
+    for( int i = 0 ; i < 10 ; i++ ){
+        this->append(std::string("bin/asset/tree/tree002.png"));
+    }
+    for( int i = 0 ; i < 10 ; i++ ){
+        this->append(std::string("bin/asset/tree/tree004.png"));
+    }
+    for( int i = 0 ; i < 8 ; i++ ){
+        this->append(std::string("bin/asset/tree/tree003.png"));
+    }
+    for( int i = 0 ; i < 5 ; i++ ){
+        this->append(std::string("bin/asset/tree/tree005.png"));
+    }
+    for( int i = 0 ; i < 3 ; i++ ){
+        this->append(std::string("bin/asset/tree/tree006.png"));
+    }
+
+
+    for( int i = 0 ; i < 3 ; i++ ){
+        this->append(std::string("bin/asset/tree/tree012.png"));
+    }
+    for( int i = 0 ; i < 3 ; i++ ){
+        this->append(std::string("bin/asset/tree/tree011.png"));
+    }
+
+
+    for( int i = 0 ; i < 3 ; i++ ){
+        this->append(std::string("bin/asset/tree/tree014.png"));
+        this->append(std::string("bin/asset/tree/tree015.png"));
+
+    }
+
+//    this->append(std::string("bin/asset/tree/shadow.png"));
+
 
 }
 
