@@ -46,7 +46,7 @@ Tree::TreeTypeList::TreeTypeList()
                 dir.cd("tree");
                 for( const auto &item : dir.entryInfoList(QDir::Filter::Files) ){
                     qDebug() << item.filePath();
-//                    this->append(item.filePath().toStdString());
+                    this->append(item.filePath().toStdString());
                 }
             }else{
                 qDebug() << dir.absolutePath();
@@ -58,43 +58,6 @@ Tree::TreeTypeList::TreeTypeList()
     }else{
         qDebug() << dir.absolutePath() << "bin";
     }
-
-    for( int i = 0 ; i < 15 ; i++ ){
-        this->append(std::string("bin/asset/tree/tree001.png"));
-    }
-    for( int i = 0 ; i < 10 ; i++ ){
-        this->append(std::string("bin/asset/tree/tree002.png"));
-    }
-    for( int i = 0 ; i < 10 ; i++ ){
-        this->append(std::string("bin/asset/tree/tree004.png"));
-    }
-    for( int i = 0 ; i < 8 ; i++ ){
-        this->append(std::string("bin/asset/tree/tree003.png"));
-    }
-    for( int i = 0 ; i < 5 ; i++ ){
-        this->append(std::string("bin/asset/tree/tree005.png"));
-    }
-    for( int i = 0 ; i < 3 ; i++ ){
-        this->append(std::string("bin/asset/tree/tree006.png"));
-    }
-
-
-    for( int i = 0 ; i < 3 ; i++ ){
-        this->append(std::string("bin/asset/tree/tree012.png"));
-    }
-    for( int i = 0 ; i < 3 ; i++ ){
-        this->append(std::string("bin/asset/tree/tree011.png"));
-    }
-
-
-    for( int i = 0 ; i < 3 ; i++ ){
-        this->append(std::string("bin/asset/tree/tree014.png"));
-        this->append(std::string("bin/asset/tree/tree015.png"));
-
-    }
-
-//    this->append(std::string("bin/asset/tree/shadow.png"));
-
 
 }
 

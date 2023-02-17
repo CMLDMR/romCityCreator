@@ -119,12 +119,12 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
 //    }
 
 
-    for( const auto &point : list2 ){
-        auto _random = LandScape::randomGenerator(0,10000);
-        auto asset = _assetList.list()[_random%(_assetList.list().size())];
-        this->getPopulation().push_back(std::make_tuple(QPointF(point.x(),point.y()),asset));
-    }
-    return;
+//    for( const auto &point : list2 ){
+//        auto _random = LandScape::randomGenerator(0,10000);
+//        auto asset = _assetList.list()[_random%(_assetList.list().size())];
+//        this->getPopulation().push_back(std::make_tuple(QPointF(point.x(),point.y()),asset));
+//    }
+//    return;
 
     if( this->getPopulation().size() ) return;
 
