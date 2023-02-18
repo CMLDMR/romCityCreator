@@ -10,29 +10,37 @@
 #include <QList>
 #include <QVector>
 
+#include <mongocore/item.h>
+
 
 namespace Assets {
 
+
 enum class AssetType{
-    soil = 0,
+    null = 0,
     rock,
     mountain,
-
-    plant = 1000,
-    tree
+    plant
 };
 
 
+namespace AssetPropertiesKey{
+inline const std::string type{"type"};
+inline const std::string name{"assetname"};
+inline const std::string width{"width"};
+inline const std::string height{"height"};
+inline const std::string fileOid{"fileOid"};
+
+}
 
 
-class Asset
+
+class Asset : public MongoCore::Item
 {
 public:
-    Asset(const AssetType &type);
+    Asset(const AssetType &type, const std::string &collection);
 
     std::string assetPath() const;
-
-    void setAssetPath(const std::string &newAssetPath);
 
     int assetWidth() const;
     void setAssetWidth(int newAssetWidth);
@@ -41,6 +49,15 @@ public:
     void setAssetHeight(int newAssetHeight);
 
     AssetType assetType() const;
+    std::string assetTypeName() const;
+
+    void setAssetName( const std::string &assetName ) ;
+    std::string AssetName() const;
+
+    void setFileOid( const bsoncxx::types::bson_value::value &value );
+    std::string fileOid() const;
+
+
 
 private:
     std::string mAssetPath;

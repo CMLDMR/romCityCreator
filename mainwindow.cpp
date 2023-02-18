@@ -1,8 +1,21 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+
+#include <QFileDialog>
+#include <QImage>
+#include <QByteArray>
+
+
+
+#include "qtModel/plantmodel.h"
 #include "Asset/tree.h"
 
+
+#include "../url.h"
+
 #include <iostream>
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,12 +23,17 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    auto list = Assets::Tree::TreeTypeList::instance().list();
-
-    qDebug()  << "Asset" << list.size();
-    for( const auto &asset : list ){
-        qDebug() << static_cast<int>(asset.assetType()) << asset.assetPath().c_str() << asset.assetWidth() << asset.assetHeight();
+    try {
+        mClient = new mongocxx::client(mongocxx::uri(_url));
+    } catch (mongocxx::exception &e) {
+        std::cout << "Error Connection: " << e.what() << "\n";
+        return;
     }
+
+
+    mDB = mClient->database("App");
+
+    mMongoDB = new MongoCore::DB(&mDB);
 
     mGraphicsView = new Widget::GraphicsView(this);
 
@@ -46,10 +64,51 @@ MainWindow::MainWindow(QWidget *parent)
         mGraphicsView->resetTransform();
     });
 
+
+    mModel = new Qt::PlantModel(this->mMongoDB);
+
+    ui->tableView_PlantView->setModel(mModel);
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+void MainWindow::on_pushButton_clicked()
+{
+
+    auto fileName = QFileDialog::getOpenFileName(this,"Resim");
+
+    QFileInfo info(fileName);
+    if( info.suffix() != "png" ){
+        qDebug() << "No PNG Image Selected";
+        return;
+    }
+
+
+    QImage img(fileName);
+
+    qDebug() << img.width();
+    qDebug() << img.height();
+
+    Assets::Tree::Tree treeItem;
+    treeItem.setAssetHeight(img.height());
+    treeItem.setAssetWidth(img.width());
+    treeItem.setAssetName("Ağaç");
+
+
+    auto fileOid = this->mModel->uploadfile(fileName.toStdString());
+
+    treeItem.setFileOid(fileOid);
+
+
+    this->mModel->InsertItem(treeItem);
+
+    this->mModel->updatePlantModel();
+
+
 }
 
