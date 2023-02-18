@@ -5,9 +5,18 @@
 
 #include "Widget/graphicsview.h"
 
+#include <mongocxx/client.hpp>
+#include <mongocxx/database.hpp>
+#include <mongocore/db.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+
+namespace Qt{
+class PlantModel;
+}
 
 class MainWindow : public QMainWindow
 {
@@ -19,11 +28,20 @@ public:
 
 
 
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
 
 
     Widget::GraphicsView* mGraphicsView;
+    mongocxx::client* mClient;
+    mongocxx::database mDB;
+    MongoCore::DB *mMongoDB;
+
+
+    Qt::PlantModel* mModel;
 
 };
 #endif // MAINWINDOW_H

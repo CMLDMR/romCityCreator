@@ -47,7 +47,7 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
             this->addItem(MmForestItem);
             MmForestItem->setPos(MmForestItem->getPosition());
 
-            qDebug() << MmForestItem->getPopulation().size() << MmForestItem->boundingRect().width()*MmForestItem->boundingRect().height();
+//            qDebug() << MmForestItem->getPopulation().size() << MmForestItem->boundingRect().width()*MmForestItem->boundingRect().height();
         }
 
         {

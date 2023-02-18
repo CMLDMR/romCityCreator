@@ -8,7 +8,7 @@
 #include <QtAlgorithms>
 
 #include <algorithm>
-#include<functional>
+#include <functional>
 
 
 //TODO: Düzgün Bir Yere QPOintF operator taşınacak
@@ -27,7 +27,7 @@ Forest::Forest()
 
 void Forest::populateForest()
 {
-    Ecosystem::Populator::instance()->Generate<Assets::Tree::Tree>(Assets::Tree::TreeTypeList::instance(),*this);
+//    Ecosystem::Populator::instance()->Generate<Assets::Tree::Tree>(Assets::Tree::TreeTypeList::instance(),*this);
 }
 
 //TODO: Padding Forest Eklenecek
@@ -103,49 +103,36 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
     auto __list = Geometry::ConcaveHull::instance()->concavehull(list,0.5);
     this->setArea(__list);
 
-//    qDebug() << __list;
 
 
 
 
-    auto _assetList = Assets::Tree::TreeTypeList::instance();
+//    auto _assetList = Assets::Tree::TreeTypeList::instance();
 
 
-    std::sort(list2.begin(), list2.end(),compare);
+//    std::sort(list2.begin(), list2.end(),compare);
 
-//    for( const auto &point : list2 ){
-//        auto asset = _assetList.list().last();
-//        this->getPopulation().push_back(std::make_tuple(QPointF(point.x(),point.y()),asset));
+
+//    if( this->getPopulation().size() ) return;
+
+//    this->getPopulation().clear();
+//    for( int j = 0 ; j < this->AreaHeight() ; j++ ){
+
+//        for( int i = 0 ; i < this->AreaWidth() ; i++ ){
+//            auto _xPos = i;
+//            auto _yPos = j;
+
+//            if( this->polygonArea().containsPoint(QPointF(_xPos,_yPos),Qt::FillRule::OddEvenFill ) ){
+//                auto modY = LandScape::randomGenerator(-20,20);
+//                auto modX = LandScape::randomGenerator(-20,20);
+//                if( i%40 == 0 && j%40 == 0 ){
+//                    auto _random = LandScape::randomGenerator(0,100);
+//                    auto asset = _assetList.list()[_random%_assetList.list().size()];
+//                    this->getPopulation().push_back(std::make_tuple(QPointF(i+modX,j+modY),asset));
+//                }
+//            }
+//        }
 //    }
-
-
-//    for( const auto &point : list2 ){
-//        auto _random = LandScape::randomGenerator(0,10000);
-//        auto asset = _assetList.list()[_random%(_assetList.list().size())];
-//        this->getPopulation().push_back(std::make_tuple(QPointF(point.x(),point.y()),asset));
-//    }
-//    return;
-
-    if( this->getPopulation().size() ) return;
-
-    this->getPopulation().clear();
-    for( int j = 0 ; j < this->AreaHeight() ; j++ ){
-
-        for( int i = 0 ; i < this->AreaWidth() ; i++ ){
-            auto _xPos = i;
-            auto _yPos = j;
-
-            if( this->polygonArea().containsPoint(QPointF(_xPos,_yPos),Qt::FillRule::OddEvenFill ) ){
-                auto modY = LandScape::randomGenerator(-20,20);
-                auto modX = LandScape::randomGenerator(-20,20);
-                if( i%40 == 0 && j%40 == 0 ){
-                    auto _random = LandScape::randomGenerator(0,100);
-                    auto asset = _assetList.list()[_random%_assetList.list().size()];
-                    this->getPopulation().push_back(std::make_tuple(QPointF(i+modX,j+modY),asset));
-                }
-            }
-        }
-    }
 }
 
 
