@@ -14,7 +14,7 @@ namespace Tree {
 
 namespace Key{
 
-};
+}
 
 
 namespace Properties{

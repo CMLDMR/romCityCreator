@@ -26,9 +26,10 @@ Forest::Forest()
     :Assets::Plant::PlantManager(GlobalVariable::mMongoDB)
 {
     if( GlobalVariable::mMongoDB ){
-            this->UpdateList(Assets::Tree::Tree());
-        mPlantManager = new Assets::Plant::PlantManager(GlobalVariable::mMongoDB);
-        mPlantManager->UpdateList(Assets::Tree::Tree());
+        this->setLimit(10000);
+        this->UpdateList(Assets::Tree::Tree());
+//        mPlantManager = new Assets::Plant::PlantManager(GlobalVariable::mMongoDB);
+//        mPlantManager->UpdateList(Assets::Tree::Tree());
     }else{
         qDebug() << "Driver Does not pointed";
     }
@@ -58,7 +59,7 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
     const int offset = 200;
 
     //TODO: Düşük Polygon Sayısı ile Metre Kare Başına Ağaç Hesaplanacak
-    for( int i = 0 ; i < 10/*qSqrt(maxHeight*maxWidth)/4*/ ; i++ ){
+    for( int i = 0 ; i < 100/*qSqrt(maxHeight*maxWidth)/4*/ ; i++ ){
 
         if( i % 10 == 0 ){
             modd = QRandomGenerator::global()->generate()%offset;
@@ -113,24 +114,31 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
     auto __list = Geometry::ConcaveHull::instance()->concavehull(list,0.5);
     this->setArea(__list);
 
-
-
-
-
-//    auto _assetList = this->List();
-
-
-//    auto _assetList = Assets::Tree::TreeTypeList::instance();
-
-
-//    std::sort(list2.begin(), list2.end(),compare);
-
-    if( !mPlantManager->List().size() ){
+    if( !this->List().size() ){
         qDebug() << "No Tree in List";
         return;
     }
 
     if( this->getPopulation().size() ) return;
+
+
+//    for( const auto &point : list ){
+
+
+
+//        auto modY = LandScape::randomGenerator(-20,20);
+//        auto modX = LandScape::randomGenerator(-20,20);
+
+//            auto _random = LandScape::randomGenerator(0,this->List().size()-1);
+//            auto asset = this->List().at(_random);
+//            this->getPopulation().push_back(std::make_tuple(QPointF(point.x()+modX,point.y()+modY),asset));
+
+
+//    }
+
+//    return;
+
+
 
     this->getPopulation().clear();
     for( int j = 0 ; j < this->AreaHeight() ; j++ ){
@@ -140,11 +148,11 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
             auto _yPos = j;
 
             if( this->polygonArea().containsPoint(QPointF(_xPos,_yPos),Qt::FillRule::OddEvenFill ) ){
-                auto modY = LandScape::randomGenerator(-5,5);
-                auto modX = LandScape::randomGenerator(-5,5);
-                if( i%20 == 0 && j%20 == 0 ){
+                auto modY = LandScape::randomGenerator(-50,50);
+                auto modX = LandScape::randomGenerator(-50,50);
+                if( i%25 == 0 && j%25 == 0 ){
                     auto _random = LandScape::randomGenerator(0,this->List().size()-1);
-                    auto asset = mPlantManager->List().at(_random);
+                    auto asset = this->List().at(_random);
                     this->getPopulation().push_back(std::make_tuple(QPointF(i+modX,j+modY),asset));
                 }
             }

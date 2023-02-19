@@ -17,7 +17,7 @@ public:
     void populateRandomArea( const int maxWidth = 500 , const int maxHeight = 500 );
 
 
-    Assets::Plant::PlantManager* mPlantManager;
+//    Assets::Plant::PlantManager* mPlantManager;
 };
 
 } // namespace Plant
