@@ -104,7 +104,7 @@ void MainWindow::on_pushButton_clicked()
     Assets::Tree::Tree treeItem;
     treeItem.setAssetHeight(img.height());
     treeItem.setAssetWidth(img.width());
-    treeItem.setAssetName("Ağaç");
+    treeItem.setAssetName(info.completeBaseName().toStdString());
 
     auto fileOid = this->mModel->uploadfile(fileName.toStdString());
 

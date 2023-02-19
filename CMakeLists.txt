@@ -24,34 +24,20 @@ file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.cpp)
 file(GLOB_RECURSE RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/*.qrc)
 file(GLOB_RECURSE UISOURCE ${CMAKE_CURRENT_SOURCE_DIR}/*.ui)
 
-#include_directories("${CMAKE_SOURCE_DIR}/../install")
-
-
-
-
-
-
-#target_include_directories(CityCreator PUBLIC "C:/Mongo/mongo-msvc2022x64-noBoost/include")
-#target_link_directories(CityCreator PUBLIC "C:/Mongo/mongo-msvc2022x64-noBoost/lib")
-
-
-
-
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(CityCreator
         MANUAL_FINALIZATION
-#        ${PROJECT_SOURCES}
         ${HEADERS}
         ${SOURCES}
         ${RESOURCES}
         ${UISOURCE}
     )
 
-
 target_include_directories(CityCreator PUBLIC "C:/Mongo/include")
 target_link_directories(CityCreator PUBLIC "C:/Mongo/lib")
 target_link_libraries(CityCreator PRIVATE MongoCore)
+
 
 
 find_package(mongocxx REQUIRED)

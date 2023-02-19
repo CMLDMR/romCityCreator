@@ -32,8 +32,8 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
 
 
 
-            auto _width = LandScape::randomGenerator(600,2000);
-            auto _heigth = LandScape::randomGenerator(600,2000);
+            auto _width = LandScape::randomGenerator(100,2800);
+            auto _heigth = LandScape::randomGenerator(100,2800);
 
             MmForestItem->setXPos(2900-_width);
             MmForestItem->setYPos(2900-_heigth);
@@ -56,7 +56,7 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
             MmForestItem->setXPos(50);
             MmForestItem->setYPos(50);
 
-            MmForestItem->populateRandomArea(LandScape::randomGenerator(600,2000),LandScape::randomGenerator(600,2000));
+            MmForestItem->populateRandomArea(LandScape::randomGenerator(750,1000),LandScape::randomGenerator(750,1000));
 
             mEcosystem->append(*MmForestItem);
 
@@ -97,7 +97,6 @@ GraphicsView::GraphicsView(QWidget *parent)
     :QGraphicsView(parent)
 {
 
-
     this->setMouseTracking(true);
 
     mScene = new GraphicsScene(this);
@@ -107,6 +106,8 @@ GraphicsView::GraphicsView(QWidget *parent)
     this->setScene(mScene);
 
     this->setViewportUpdateMode(ViewportUpdateMode::FullViewportUpdate);
+
+    this->setDragMode(QGraphicsView::DragMode::ScrollHandDrag);
 
 }
 
