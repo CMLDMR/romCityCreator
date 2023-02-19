@@ -2,6 +2,8 @@
 #define QT_PLANTMODEL_H
 
 #include <QStandardItemModel>
+#include "plantstandartitem.h"
+
 #include "Asset/plant.h"
 #include <mongocore/db.h>
 
@@ -9,8 +11,12 @@ namespace Qt {
 
 class PlantModel : public QStandardItemModel, public Assets::Plant::PlantManager
 {
+    Q_OBJECT
 public:
     explicit PlantModel( MongoCore::DB* _mDb , QObject *parent = nullptr );
+
+
+Q_SIGNALS:
 
 
 

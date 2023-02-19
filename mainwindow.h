@@ -31,6 +31,12 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    void on_pushButton_addFolder_clicked();
+
+    void on_pushButton_updatePlantList_clicked();
+
+    void on_pushButton_deletePlant_clicked();
+
 private:
     Ui::MainWindow *ui;
 
