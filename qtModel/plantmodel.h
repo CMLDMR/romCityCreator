@@ -9,8 +9,12 @@ namespace Qt {
 
 class PlantModel : public QStandardItemModel, public Assets::Plant::PlantManager
 {
+    Q_OBJECT
 public:
     explicit PlantModel( MongoCore::DB* _mDb , QObject *parent = nullptr );
+
+
+Q_SIGNALS:
 
 
 

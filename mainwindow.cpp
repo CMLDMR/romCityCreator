@@ -68,6 +68,13 @@ MainWindow::MainWindow(QWidget *parent)
     mModel = new Qt::PlantModel(this->mMongoDB);
 
     ui->tableView_PlantView->setModel(mModel);
+    QObject::connect(mModel,&QStandardItemModel::itemChanged,[=](){
+        ui->tableView_PlantView->resizeRowsToContents();
+    });
+
+    QObject::connect(mModel,&QStandardItemModel::rowsAboutToBeInserted,[=](){
+        ui->tableView_PlantView->resizeRowsToContents();
+    });
 
 }
 
