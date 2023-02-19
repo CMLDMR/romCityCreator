@@ -187,3 +187,53 @@ void MainWindow::on_pushButton_deletePlant_clicked()
 
 }
 
+#include <Geometry/fastnoiselite.h>
+#include <QRandomGenerator>
+#include <QLabel>
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    QImage *img = new QImage(512,512,QImage::Format_RGB888);
+
+
+    Geometry::Noise::FastNoiseLite noiseGen;
+    noiseGen.SetNoiseType(Geometry::Noise::FastNoiseLite::NoiseType_Value);
+    noiseGen.SetFrequency(ui->doubleSpinBox_frequency->value());
+    noiseGen.SetSeed(QRandomGenerator::global()->generate()%10000);
+
+    std::vector<float> noiseData(512*512);
+    int index = 0;
+
+    for( int i = 0 ; i < 512 ; i++ ){
+        for( int j = 0 ; j < 512 ; j++ ){
+            noiseData[index++] = (noiseGen.GetNoise((float)i, (float)j)+1)*255;
+        }
+    }
+
+    float min = 9999;
+    float max = -9999;
+
+    index = 0;
+    for( int i = 0 ; i < 512 ; i++ ){
+        for( int j = 0 ; j < 512 ; j++ ){
+            auto data_ = noiseData[index++];
+            min = min > data_ ? data_ : min;
+            max = max < data_ ? data_ : max;
+        }
+    }
+
+    index = 0;
+    for( int i = 0 ; i < 512 ; i++ ){
+        for( int j = 0 ; j < 512 ; j++ ){
+            auto data_ = (noiseData[index++]-min)/(max-min)*255.0;
+
+            img->setPixel(i,j,qRgb(data_,data_,data_));
+        }
+    }
+
+
+    ui->label->setPixmap(QPixmap::fromImage(*img));
+
+    qDebug() << min << max;
+}
+

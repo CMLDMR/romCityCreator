@@ -16,8 +16,13 @@ public:
 
     void populateRandomArea( const int maxWidth = 500 , const int maxHeight = 500 );
 
+    const std::vector<float> &noiseData() const;
 
-//    Assets::Plant::PlantManager* mPlantManager;
+private:
+    std::vector<float> mNoiseData;
+
+    void generateNoise();
+
 };
 
 } // namespace Plant
