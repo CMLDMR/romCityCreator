@@ -5,6 +5,8 @@
 #include <tuple>
 #include <memory>
 #include <mutex>
+#include <vector>
+#include <iostream>
 
 #include <QDebug>
 #include <QList>
@@ -75,16 +77,16 @@ template<typename T>
 class AssetTypeList{
 public:
     AssetTypeList& append(const T &item ){
-        mList.append(item);
+        mList.push_back(item);
         return *this;
     }
 
-    inline const QVector<T> &list() const {
+    inline const std::vector<T> &list() const {
         return mList;
     }
 
 private:
-    QVector<T> mList;
+    std::vector<T> mList;
 
 
 };

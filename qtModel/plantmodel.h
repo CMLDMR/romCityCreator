@@ -2,6 +2,8 @@
 #define QT_PLANTMODEL_H
 
 #include <QStandardItemModel>
+#include "plantstandartitem.h"
+
 #include "Asset/plant.h"
 #include <mongocore/db.h>
 

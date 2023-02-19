@@ -11,7 +11,11 @@ Asset::Asset(const AssetType &type,const std::string &collection)
 
 std::string Asset::assetPath() const
 {
-    return mAssetPath;
+    auto val = this->element(AssetPropertiesKey::fileOid);
+    if( val ){
+        return std::string("tempfile/")+val.value().view().get_oid().value.to_string() + std::string(".png");
+    }
+    return "";
 }
 
 int Asset::assetWidth() const
