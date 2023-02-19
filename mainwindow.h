@@ -37,6 +37,8 @@ private slots:
 
     void on_pushButton_deletePlant_clicked();
 
+    void on_pushButton_2_clicked();
+
 private:
     Ui::MainWindow *ui;
 

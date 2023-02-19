@@ -22,6 +22,8 @@ public:
 private:
     int totalWidth{100};
     int totalHeight{100};
+
+    QPixmap getForestFloor();
 };
 
 } // namespace Widget

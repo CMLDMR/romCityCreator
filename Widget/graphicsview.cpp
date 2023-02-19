@@ -28,24 +28,24 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
         floorItem->setPos(0,0);
 
         {
-            ForestItem* MmForestItem = new ForestItem();
+//            ForestItem* MmForestItem = new ForestItem();
 
 
 
-            auto _width = LandScape::randomGenerator(100,2800);
-            auto _heigth = LandScape::randomGenerator(100,2800);
+//            auto _width = LandScape::randomGenerator(750,1500);
+//            auto _heigth = LandScape::randomGenerator(750,1500);
 
-            MmForestItem->setXPos(2900-_width);
-            MmForestItem->setYPos(2900-_heigth);
+//            MmForestItem->setXPos(2900-_width);
+//            MmForestItem->setYPos(2900-_heigth);
 
-            MmForestItem->populateRandomArea(_width,_heigth);
+//            MmForestItem->populateRandomArea(_width,_heigth);
 
-            mEcosystem->append(*MmForestItem);
+//            mEcosystem->append(*MmForestItem);
 
-            mForestRandomAreaItemList.push_back(MmForestItem);
+//            mForestRandomAreaItemList.push_back(MmForestItem);
 
-            this->addItem(MmForestItem);
-            MmForestItem->setPos(MmForestItem->getPosition());
+//            this->addItem(MmForestItem);
+//            MmForestItem->setPos(MmForestItem->getPosition());
 
 //            qDebug() << MmForestItem->getPopulation().size() << MmForestItem->boundingRect().width()*MmForestItem->boundingRect().height();
         }
@@ -56,7 +56,8 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
             MmForestItem->setXPos(50);
             MmForestItem->setYPos(50);
 
-            MmForestItem->populateRandomArea(LandScape::randomGenerator(750,1000),LandScape::randomGenerator(750,1000));
+//            MmForestItem->populateRandomArea(LandScape::randomGenerator(750,1000),LandScape::randomGenerator(750,1000));
+            MmForestItem->populateRandomArea(500,500);
 
             mEcosystem->append(*MmForestItem);
 

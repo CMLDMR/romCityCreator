@@ -13,6 +13,9 @@
 
 #include <globalVar.h>
 
+#include <Geometry/fastnoiselite.h>
+#include <QRandomGenerator>
+
 //TODO: Düzgün Bir Yere QPOintF operator taşınacak
 
 static bool compare( const QPointF &a , const QPointF &b){
@@ -122,42 +125,74 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
     if( this->getPopulation().size() ) return;
 
 
-//    for( const auto &point : list ){
+
+    this->generateNoise();
 
 
-
-//        auto modY = LandScape::randomGenerator(-20,20);
-//        auto modX = LandScape::randomGenerator(-20,20);
-
-//            auto _random = LandScape::randomGenerator(0,this->List().size()-1);
-//            auto asset = this->List().at(_random);
-//            this->getPopulation().push_back(std::make_tuple(QPointF(point.x()+modX,point.y()+modY),asset));
-
-
-//    }
-
-//    return;
-
-
-
+    int index = 0;
     this->getPopulation().clear();
     for( int j = 0 ; j < this->AreaHeight() ; j++ ){
 
         for( int i = 0 ; i < this->AreaWidth() ; i++ ){
+
             auto _xPos = i;
             auto _yPos = j;
 
-            if( this->polygonArea().containsPoint(QPointF(_xPos,_yPos),Qt::FillRule::OddEvenFill ) ){
-                auto modY = LandScape::randomGenerator(-50,50);
-                auto modX = LandScape::randomGenerator(-50,50);
-                if( i%25 == 0 && j%25 == 0 ){
+            if( this->polygonArea().containsPoint(QPointF(_xPos,_yPos),Qt::FillRule::OddEvenFill ) && mNoiseData[index] > 126){
+                auto modY = LandScape::randomGenerator(-5,5);
+                auto modX = LandScape::randomGenerator(-5,5);
+                if( i%15 == 0 && j%15 == 0 ){
                     auto _random = LandScape::randomGenerator(0,this->List().size()-1);
                     auto asset = this->List().at(_random);
                     this->getPopulation().push_back(std::make_tuple(QPointF(i+modX,j+modY),asset));
                 }
             }
+            index++;
         }
     }
+}
+
+const std::vector<float> &Forest::noiseData() const
+{
+    return mNoiseData;
+}
+
+void Forest::generateNoise()
+{
+    Geometry::Noise::FastNoiseLite noiseGen;
+    noiseGen.SetNoiseType(Geometry::Noise::FastNoiseLite::NoiseType_Value);
+    noiseGen.SetFrequency(0.02);
+    noiseGen.SetSeed(QRandomGenerator::global()->generate()%10000);
+
+    mNoiseData.clear();
+    int index = 0;
+    for( int i = 0 ; i < this->AreaWidth() ; i++ ){
+        for( int j = 0 ; j < this->AreaHeight() ; j++ ){
+            mNoiseData.push_back((noiseGen.GetNoise((float)i, (float)j)+1)*255);
+        }
+    }
+
+    float min = 9999;
+    float max = -9999;
+
+    index = 0;
+    for( int i = 0 ; i < this->AreaWidth() ; i++ ){
+        for( int j = 0 ; j < this->AreaHeight() ; j++ ){
+            auto data_ = mNoiseData[index];
+            min = min > data_ ? data_ : min;
+            max = max < data_ ? data_ : max;
+            index++;
+        }
+    }
+
+    index = 0;
+    for( int i = 0 ; i < this->AreaWidth() ; i++ ){
+        for( int j = 0 ; j < this->AreaHeight() ; j++ ){
+            mNoiseData[index] = (mNoiseData[index]-min)/(max-min)*255.0;
+            index++;
+        }
+    }
+
 }
 
 
