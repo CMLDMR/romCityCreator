@@ -172,18 +172,7 @@ void Forest::generateNoise()
         }
     }
 
-    float min = 9999;
-    float max = -9999;
-
-    index = 0;
-    for( int i = 0 ; i < this->AreaWidth() ; i++ ){
-        for( int j = 0 ; j < this->AreaHeight() ; j++ ){
-            auto data_ = mNoiseData[index];
-            min = min > data_ ? data_ : min;
-            max = max < data_ ? data_ : max;
-            index++;
-        }
-    }
+    auto [min,max] = std::ranges::minmax(mNoiseData);
 
     index = 0;
     for( int i = 0 ; i < this->AreaWidth() ; i++ ){
