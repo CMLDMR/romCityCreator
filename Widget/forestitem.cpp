@@ -17,7 +17,9 @@ ForestItem::ForestItem()
 
 QRectF Widget::ForestItem::boundingRect() const
 {
-    return QRectF(-totalWidth/2,-totalHeight,this->AreaWidth()+totalWidth,this->AreaHeight()+totalHeight);
+//    return QRectF(-totalWidth/2,-totalHeight,this->AreaWidth()+totalWidth,this->AreaHeight()+totalHeight);
+    return QRectF(0,0,this->AreaWidth(),this->AreaHeight());
+
 }
 
 void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -31,7 +33,7 @@ void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem
         totalHeight = totalHeight < asset.assetHeight() ? asset.assetHeight() : totalHeight;
     }
 
-    //    painter->drawPolygon(this->getArea());
+        painter->drawPolygon(this->getArea());
 }
 
 

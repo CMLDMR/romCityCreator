@@ -27,44 +27,58 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
         auto floorItem = addPixmap(QPixmap("://bin/asset/floor.jpg"));
         floorItem->setPos(0,0);
 
-        {
-//            ForestItem* MmForestItem = new ForestItem();
+
+        //Bölgeler Grid
+        for( int i = 0 ; i < 7 ; i++ ){
+            addLine(i*500,0,i*500,3000,QPen(Qt::GlobalColor::red,2));
+            addLine(0,i*500,3000,i*500,QPen(Qt::GlobalColor::red,2));
+        }
+
+
+        QList<QRectF> pList;
+        QList<QPointF> pointList;
+
+        while (pList.size() < 6) {
+            auto xPos = LandScape::randomGenerator(0,2);
+            auto yPos = LandScape::randomGenerator(0,2);
+            auto xWidth = LandScape::randomGenerator(500,1000);
+            auto yHeight = LandScape::randomGenerator(500,1000);
+            if( !pointList.contains(QPointF(xPos*1000,yPos*1000)) ){
+                pointList.push_back(QPointF(xPos*1000,yPos*1000));
+                pList.push_back(QRectF(xPos*1000,yPos*1000,xWidth,yHeight));
+            }
+        }
+
+        for( const auto &pos : pList ){
+
+            ForestItem* mMForestItem = new ForestItem();
 
 
 
-//            auto _width = LandScape::randomGenerator(750,1500);
-//            auto _heigth = LandScape::randomGenerator(750,1500);
+            mMForestItem->populateRandomArea(pos.width(),pos.height());
 
-//            MmForestItem->setXPos(2900-_width);
-//            MmForestItem->setYPos(2900-_heigth);
+            auto point = QPointF(pos.x()+(1000-mMForestItem->boundingRect().width())/2,
+                                                     pos.y()+(1000-mMForestItem->boundingRect().height())/2);
 
-//            MmForestItem->populateRandomArea(_width,_heigth);
+            mMForestItem->setXPos(point.x());
+            mMForestItem->setYPos(point.y());
 
-//            mEcosystem->append(*MmForestItem);
+            mEcosystem->append(*mMForestItem);
+            mMForestItem->setPos(mMForestItem->getPosition());
+            mForestRandomAreaItemList.push_back(mMForestItem);
+            this->addItem(mMForestItem);
+            auto rectItem = addRect(mMForestItem->boundingRect());
+            rectItem->setPos(QPointF(pos.x()+(1000-mMForestItem->boundingRect().width())/2,
+                                         pos.y()+(1000-mMForestItem->boundingRect().height())/2));
 
-//            mForestRandomAreaItemList.push_back(MmForestItem);
 
-//            this->addItem(MmForestItem);
-//            MmForestItem->setPos(MmForestItem->getPosition());
+//            mMForestItem->setPos(QPointF((500-mMForestItem->boundingRect().width())/2,
+//                                         (500-mMForestItem->boundingRect().height())/2));
 
-//            qDebug() << MmForestItem->getPopulation().size() << MmForestItem->boundingRect().width()*MmForestItem->boundingRect().height();
         }
 
         {
-            ForestItem* MmForestItem = new ForestItem();
 
-            MmForestItem->setXPos(50);
-            MmForestItem->setYPos(50);
-
-//            MmForestItem->populateRandomArea(LandScape::randomGenerator(750,1000),LandScape::randomGenerator(750,1000));
-            MmForestItem->populateRandomArea(500,500);
-
-            mEcosystem->append(*MmForestItem);
-
-            mForestRandomAreaItemList.push_back(MmForestItem);
-
-            this->addItem(MmForestItem);
-            MmForestItem->setPos(MmForestItem->getPosition());
         }
 
     }
