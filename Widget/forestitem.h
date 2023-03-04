@@ -3,6 +3,7 @@
 
 #include "Asset/forest.h"
 #include <QGraphicsItem>
+#include <QThread>
 
 namespace Widget {
 
@@ -11,6 +12,7 @@ class ForestItem : public QGraphicsItem, public Assets::Plant::Forest
 public:
     ForestItem();
 
+    void Build();
 
 
     // QGraphicsItem interface
@@ -24,6 +26,11 @@ private:
     int totalHeight{100};
 
     QPixmap getForestFloor();
+
+    QThread *mThread;
+
+
+    QImage *mForestImage = nullptr;
 };
 
 } // namespace Widget
