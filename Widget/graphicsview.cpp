@@ -38,7 +38,7 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
         QList<QRectF> pList;
         QList<QPointF> pointList;
 
-        while (pList.size() < 6) {
+        while (pList.size() < 3) {
             auto xPos = LandScape::randomGenerator(0,2);
             auto yPos = LandScape::randomGenerator(0,2);
             auto xWidth = LandScape::randomGenerator(500,1000);
@@ -52,12 +52,7 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
         for( const auto &pos : pList ){
 
             ForestItem* mMForestItem = new ForestItem();
-
-
-
             mMForestItem->populateRandomArea(pos.width(),pos.height());
-
-            mMForestItem->Build();
             auto point = QPointF(pos.x()+(1000-mMForestItem->boundingRect().width())/2,
                                                      pos.y()+(1000-mMForestItem->boundingRect().height())/2);
 
@@ -71,10 +66,6 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
             auto rectItem = addRect(mMForestItem->boundingRect());
             rectItem->setPos(QPointF(pos.x()+(1000-mMForestItem->boundingRect().width())/2,
                                          pos.y()+(1000-mMForestItem->boundingRect().height())/2));
-
-
-//            mMForestItem->setPos(QPointF((500-mMForestItem->boundingRect().width())/2,
-//                                         (500-mMForestItem->boundingRect().height())/2));
 
         }
 
@@ -180,7 +171,8 @@ void Widget::GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
     if( mCurrentElementType == ElementItem::mountain ){
         if( mMountainItem ){
-            mMountainItem->setPos(QPointF(event->scenePos().x(),event->scenePos().y()));
+            mMountainItem->setPos(QPointF(event->scenePos().x()-mMountainItem->boundingRect().width()/2,
+                                          event->scenePos().y()-mMountainItem->boundingRect().height()/2));
         }
     }
 }
@@ -212,10 +204,11 @@ void Widget::GraphicsScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
             mMountainItem = new MountainItem();
             this->addItem(mMountainItem);
-            mMountainItem->setPos(QPointF(event->scenePos().x(),event->scenePos().y()));
-
+            mMountainItem->setPos(QPointF(event->scenePos().x()-mMountainItem->boundingRect().width()/2,
+                                          event->scenePos().y()-mMountainItem->boundingRect().height()/2));
         }else{
-            mMountainItem->setPos(QPointF(event->scenePos().x(),event->scenePos().y()));
+            mMountainItem->setPos(QPointF(event->scenePos().x()-mMountainItem->boundingRect().width()/2,
+                                          event->scenePos().y()-mMountainItem->boundingRect().height()/2));
         }
     }
 }
