@@ -4,6 +4,10 @@
 #include "Ecosystem/population.h"
 #include "Asset/plant.h"
 
+class QThread;
+class QImage;
+
+
 namespace Assets {
 namespace Plant {
 
@@ -18,10 +22,22 @@ public:
 
     const std::vector<float> &noiseData() const;
 
+    void startBuilding();
+
+    virtual void updated() {}
+
+    QImage *forestImage() const;
+
 private:
     std::vector<float> mNoiseData;
 
     void generateNoise();
+
+    QThread* mThread;
+
+    void forestBuilder();
+    QImage *mForestImage = nullptr;
+
 
 };
 

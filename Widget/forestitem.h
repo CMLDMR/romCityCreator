@@ -20,17 +20,8 @@ public:
     virtual QRectF boundingRect() const override;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+    virtual void updated() override;
 
-private:
-    int totalWidth{100};
-    int totalHeight{100};
-
-    QPixmap getForestFloor();
-
-    QThread *mThread;
-
-
-    QImage *mForestImage = nullptr;
 };
 
 } // namespace Widget
