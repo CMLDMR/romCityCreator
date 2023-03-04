@@ -156,6 +156,8 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
             index++;
         }
     }
+
+    mThread->start();
 }
 
 const std::vector<float> &Forest::noiseData() const
