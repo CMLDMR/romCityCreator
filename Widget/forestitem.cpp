@@ -9,7 +9,30 @@ namespace Widget {
 
 ForestItem::ForestItem()
 {
+    mThread = new QThread;
 
+    QObject::connect(mThread,&QThread::started,[=](){
+        if( !mForestImage ){
+            mForestImage = new QImage(this->AreaWidth()+50,this->AreaHeight()+50,QImage::Format_RGBA8888);
+            mForestImage->fill(QColor(255,255,255,0));
+        }
+        QPainter painter;
+        painter.begin(mForestImage);
+        painter.drawPixmap(0,0,getForestFloor());
+        for( const auto &[point,asset] : this->getPopulation() ){
+            painter.drawPixmap(point.x()-asset.assetWidth()/2+25,point.y()-asset.assetHeight()+40,QPixmap(asset.assetPath().c_str()));
+            totalWidth = totalWidth < asset.assetWidth() ? asset.assetWidth() : totalWidth;
+            totalHeight = totalHeight < asset.assetHeight() ? asset.assetHeight() : totalHeight;
+        }
+        painter.drawPolygon(this->getArea());
+        painter.end();
+        this->update();
+    });
+}
+
+void ForestItem::Build()
+{
+    mThread->start();
 }
 
 } // namespace Widget
@@ -17,23 +40,16 @@ ForestItem::ForestItem()
 
 QRectF Widget::ForestItem::boundingRect() const
 {
-//    return QRectF(-totalWidth/2,-totalHeight,this->AreaWidth()+totalWidth,this->AreaHeight()+totalHeight);
-    return QRectF(0,0,this->AreaWidth(),this->AreaHeight());
+    //    return QRectF(-totalWidth/2,-totalHeight,this->AreaWidth()+totalWidth,this->AreaHeight()+totalHeight);
+    return QRectF(0,0,this->AreaWidth()+50,this->AreaHeight()+50);
 
 }
 
 void Widget::ForestItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-
-    painter->drawPixmap(0,0,getForestFloor());
-
-    for( const auto &[point,asset] : this->getPopulation() ){
-        painter->drawPixmap(point.x()-asset.assetWidth()/2,point.y()-asset.assetHeight(),QPixmap(asset.assetPath().c_str()));
-        totalWidth = totalWidth < asset.assetWidth() ? asset.assetWidth() : totalWidth;
-        totalHeight = totalHeight < asset.assetHeight() ? asset.assetHeight() : totalHeight;
+    if( mForestImage ){
+        painter->drawImage(0,0,*mForestImage);
     }
-
-        painter->drawPolygon(this->getArea());
 }
 
 
@@ -80,4 +96,5 @@ QPixmap Widget::ForestItem::getForestFloor()
 
     return QPixmap::fromImage(pixmap);
 }
+
 

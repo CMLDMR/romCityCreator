@@ -57,6 +57,7 @@ void GraphicsScene::setCurrentElementType(ElementItem newCurrentElementType)
 
             mMForestItem->populateRandomArea(pos.width(),pos.height());
 
+            mMForestItem->Build();
             auto point = QPointF(pos.x()+(1000-mMForestItem->boundingRect().width())/2,
                                                      pos.y()+(1000-mMForestItem->boundingRect().height())/2);
 
