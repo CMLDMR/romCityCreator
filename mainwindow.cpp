@@ -8,6 +8,8 @@
 
 
 #include "qtModel/plantmodel.h"
+#include "qtModel/mountainmodel.h"
+
 #include "Asset/tree.h"
 
 
@@ -68,8 +70,10 @@ MainWindow::MainWindow(QWidget *parent)
     });
 
 
-    mModel = new Qt::PlantModel(this->mMongoDB);
 
+
+
+    mModel = new Qt::PlantModel(this->mMongoDB);
     ui->tableView_PlantView->setModel(mModel);
     QObject::connect(mModel,&QStandardItemModel::itemChanged,[=](){
         ui->tableView_PlantView->resizeRowsToContents();
@@ -79,6 +83,21 @@ MainWindow::MainWindow(QWidget *parent)
         ui->tableView_PlantView->resizeRowsToContents();
     });
 
+
+    mMountainModel = new Qt::MountainModel(GlobalVariable::mMongoDB);
+    ui->tableView_MountainModelView->setModel(mMountainModel);
+    QObject::connect(mMountainModel,&QStandardItemModel::itemChanged,[=](){
+        ui->tableView_MountainModelView->resizeRowsToContents();
+    });
+
+    QObject::connect(mMountainModel,&QStandardItemModel::rowsAboutToBeInserted,[=](){
+        ui->tableView_MountainModelView->resizeRowsToContents();
+    });
+
+    QObject::connect(ui->pushButton_MountainAdd,&QPushButton::clicked,this,&MainWindow::addMountain);
+
+
+
 }
 
 MainWindow::~MainWindow()
@@ -86,7 +105,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
+///
+/// \brief MainWindow::on_pushButton_clicked
+/// Add tree to Database
 void MainWindow::on_pushButton_clicked()
 {
 
@@ -235,5 +256,35 @@ void MainWindow::on_pushButton_2_clicked()
     ui->label->setPixmap(QPixmap::fromImage(*img));
 
     qDebug() << min << max;
+}
+
+void MainWindow::addMountain()
+{
+
+    auto fileName = QFileDialog::getOpenFileName(this,"Resim");
+
+    QFileInfo info(fileName);
+    if( info.suffix() != "png" ){
+        qDebug() << "No PNG Image Selected";
+        return;
+    }
+
+
+    QImage img(fileName);
+
+    Assets::Terrain::Mountain mountainItem;
+    mountainItem.setAssetHeight(img.height());
+    mountainItem.setAssetWidth(img.width());
+    mountainItem.setAssetName(info.completeBaseName().toStdString());
+
+    auto fileOid = this->mModel->uploadfile(fileName.toStdString());
+
+    mountainItem.setFileOid(fileOid);
+
+
+    this->mMountainModel->InsertItem(mountainItem);
+
+    this->mMountainModel->updateMountainModel();
+
 }
 
