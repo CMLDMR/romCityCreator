@@ -54,14 +54,12 @@ void Forest::populateForest()
 void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
 {
 
-
     QList<QPointF> list;
     QList<QPointF> list2;
 
     QList<QPolygonF> squareList;
 
     int modd = QRandomGenerator::global()->generate()%200;
-
 
     const int w = 30;
     const int h = 30;
@@ -130,10 +128,7 @@ void Forest::populateRandomArea(const int maxWidth, const int maxHeight)
 
     if( this->getPopulation().size() ) return;
 
-
-
     this->generateNoise();
-
 
     int index = 0;
     this->getPopulation().clear();
@@ -223,7 +218,7 @@ void Forest::forestBuilder()
 
 
     QImage pixmap(this->AreaWidth(),this->AreaHeight(),QImage::Format_ARGB32);
-    QImage soil("bin/asset/soil.png");
+    QImage soil("bin/asset/level-old-floor-natural-counter.jpg");
 
     int index = 0;
     for( int i = 0 ; i < this->AreaWidth() ; i++ ){

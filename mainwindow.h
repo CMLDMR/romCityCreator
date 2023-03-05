@@ -16,6 +16,7 @@ QT_END_NAMESPACE
 
 namespace Qt{
 class PlantModel;
+class MountainModel;
 }
 
 class MainWindow : public QMainWindow
@@ -50,6 +51,9 @@ private:
 
 
     Qt::PlantModel* mModel;
+    Qt::MountainModel* mMountainModel;
+
+    void addMountain();
 
 };
 #endif // MAINWINDOW_H

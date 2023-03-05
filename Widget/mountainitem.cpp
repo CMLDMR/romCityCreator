@@ -21,5 +21,5 @@ QRectF Widget::MountainItem::boundingRect() const
 void Widget::MountainItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
 
-    painter->drawPixmap(0,0,QPixmap(":/mountain/bin/asset/mountain/m2.png"));
+    painter->drawPixmap(0,0,QPixmap(":/mountain/bin/asset/mountain/mountain0002.png"));
 }
